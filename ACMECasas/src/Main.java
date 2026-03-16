@@ -1,6 +1,6 @@
 public class Main {
-    public static void main(String[] args) throws Exception {
-        ACMEImobiliaria acmeImobiliaria = new ACMEImobiliaria();
-        acmeImobiliaria.init();
-    }
+    public static void main(String[] args) {
+        ACMEImobilliaria acmeImobilliaria = new ACMEImobilliaria();
+        acmeImobilliaria.executar();
+        }
 }
