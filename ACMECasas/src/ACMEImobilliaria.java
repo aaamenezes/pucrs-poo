@@ -1,15 +1,15 @@
-// Aplicacao
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ACMEImobilliaria {
     private Condominio condominio;
     private Scanner entrada;
+    private Clientela clientela;
 
     public ACMEImobilliaria() {
-        condominio = new Condominio();
-        entrada = new Scanner(System.in);
+        this.condominio = new Condominio();
+        this.clientela = new Clientela();
+        this.entrada = new Scanner(System.in);
     }
 
     /**
@@ -37,8 +37,14 @@ public class ACMEImobilliaria {
                 case 3:
                     listarTodasCasas();
                     break;
+                case 4:
+                    cadastrarCliente();
+                    break;
                 case 5:
                     consultarCasaPorTamanho();
+                    break;
+                case 6:
+                    cadastrarCompraDeCasaPorCliente();
                     break;
                 case 99:
                     easterEgg();
@@ -59,7 +65,9 @@ public class ACMEImobilliaria {
         System.out.println("[1] Cadastrar uma casa");
         System.out.println("[2] Consultar uma casa");
         System.out.println("[3] Listar todas as casas");
+        System.out.println("[4] Cadastrar novo cliente");
         System.out.println("[5] Consultar todas as casas de um determinado tamanho");
+        System.out.println("[6] Cadastrar compra de casa por cliente");
     }
 
     /**
@@ -159,4 +167,39 @@ public class ACMEImobilliaria {
         condominio.cadastrarCasa(casa);
     }
 
+    private void cadastrarCliente() {
+        System.out.println("Cadastrar um cliente");
+        System.out.println("------------------");
+        System.out.print("Digite o nome do cliente: ");
+        String nome = entrada.nextLine();
+        Cliente cliente = new Cliente(nome);
+        boolean resultado = this.clientela.cadastrarCliente(cliente);
+        if (resultado)
+            System.out.println("Cliente cadastrado");
+        else
+            System.out.println("Erro no cadastramento!");
+    }
+
+    private void cadastrarCompraDeCasaPorCliente(String nomeCliente, String endereco) {
+        if (!this.clientela.clienteExiste(nomeCliente) || (!this.condominio.casaExiste(endereco)) {
+            System.out.println("Cliente ou casa não existem");
+            return;
+        }
+
+        Cliente clienteComprador = this.clientela.consultarClientePorNome(nomeCliente);
+        Casa casa = this.condominio.consultarCasaEndereco(endereco);
+
+        clienteComprador.comprarCasa(casa);
+    }
+
+    private void mostrarCasasCompradas(String nome) {
+        Cliente cliente = this.clientela.consultarClientePorNome(nome);
+        ArrayList<Casa> casasDoCliente = cliente.consultarCasasCompradas();
+
+        for (Casa casa : casasDoCliente) {
+            System.out.println("Endereço: " + casa.getEndereco());
+            System.out.println("Tamanho: " + casa.getTamanho());
+            System.out.println("Valor: " + casa.getValor());
+        }
+    }
 }

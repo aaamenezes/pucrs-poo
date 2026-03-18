@@ -3,7 +3,6 @@ import java.util.ArrayList;
 public class Condominio {
     private ArrayList<Casa> casas;
 
-
     public Condominio() {
         casas = new ArrayList<Casa>();
     }
@@ -27,6 +26,15 @@ public class Condominio {
         }
 
         return null;
+    }
+
+    public boolean casaExiste(String endereco) {
+        for (Casa casa : this.casas) {
+            if(casa.getEndereco().equals(endereco))
+                return true;
+        }
+
+        return false;
     }
 
     /**
