@@ -19,13 +19,4 @@ public class Clientela {
 
         return null;
     }
-
-    public boolean clienteExiste(String nome) {
-        for (Cliente cliente : this.clientes) {
-            if(cliente.getNome().equals(nome))
-                return true;
-        }
-
-        return false;
-    }
 }

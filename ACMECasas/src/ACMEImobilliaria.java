@@ -3,8 +3,8 @@ import java.util.Scanner;
 
 public class ACMEImobilliaria {
     private Condominio condominio;
-    private Scanner entrada;
     private Clientela clientela;
+    private Scanner entrada;
 
     public ACMEImobilliaria() {
         this.condominio = new Condominio();
@@ -46,6 +46,9 @@ public class ACMEImobilliaria {
                 case 6:
                     cadastrarCompraDeCasaPorCliente();
                     break;
+                case 7:
+                    mostrarCasasCompradas();
+                    break;
                 case 99:
                     easterEgg();
                     break;
@@ -68,6 +71,7 @@ public class ACMEImobilliaria {
         System.out.println("[4] Cadastrar novo cliente");
         System.out.println("[5] Consultar todas as casas de um determinado tamanho");
         System.out.println("[6] Cadastrar compra de casa por cliente");
+        System.out.println("[7] Listar casas compradas por cliente");
     }
 
     /**
@@ -180,23 +184,32 @@ public class ACMEImobilliaria {
             System.out.println("Erro no cadastramento!");
     }
 
-    private void cadastrarCompraDeCasaPorCliente(String nomeCliente, String endereco) {
-        if (!this.clientela.clienteExiste(nomeCliente) || (!this.condominio.casaExiste(endereco)) {
-            System.out.println("Cliente ou casa não existem");
-            return;
-        }
+    private boolean cadastrarCompraDeCasaPorCliente() {
+        System.out.println("Digite o nome do cliente:");
+        String nomeCliente = entrada.nextLine();
+        Cliente clienteComprador = clientela.consultarClientePorNome(nomeCliente);
+        if (clienteComprador == null) return false;
 
-        Cliente clienteComprador = this.clientela.consultarClientePorNome(nomeCliente);
-        Casa casa = this.condominio.consultarCasaEndereco(endereco);
+        System.out.println("Digite o endereço da casa:");
+        String enderecoCasa = entrada.nextLine();
+        Casa casa = condominio.consultarCasaEndereco(enderecoCasa);
+        if (casa == null) return true;
 
-        clienteComprador.comprarCasa(casa);
+        return clienteComprador.comprarCasa(casa);
     }
 
-    private void mostrarCasasCompradas(String nome) {
-        Cliente cliente = this.clientela.consultarClientePorNome(nome);
+    private void mostrarCasasCompradas() {
+        System.out.println("Digite o nome do cliente:");
+        String nomeCliente = entrada.nextLine();
+        Cliente cliente = clientela.consultarClientePorNome(nomeCliente);
+        if (cliente == null) return;
+
         ArrayList<Casa> casasDoCliente = cliente.consultarCasasCompradas();
+        int index = 0;
 
         for (Casa casa : casasDoCliente) {
+            index++;
+            System.out.println("Casa " + index);
             System.out.println("Endereço: " + casa.getEndereco());
             System.out.println("Tamanho: " + casa.getTamanho());
             System.out.println("Valor: " + casa.getValor());

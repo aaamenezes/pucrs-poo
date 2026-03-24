@@ -16,8 +16,8 @@ public class Cliente {
         this.nome = nome;
     }
 
-    public void comprarCasa(Casa casa) {
-        casas.add(casa);
+    public boolean comprarCasa(Casa casa) {
+        return casas.add(casa);
     }
 
     public ArrayList<Casa> consultarCasasCompradas() {

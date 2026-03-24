@@ -28,15 +28,6 @@ public class Condominio {
         return null;
     }
 
-    public boolean casaExiste(String endereco) {
-        for (Casa casa : this.casas) {
-            if(casa.getEndereco().equals(endereco))
-                return true;
-        }
-
-        return false;
-    }
-
     /**
      * R - Retrieve
      * Consulta todas as casas cadastradas
