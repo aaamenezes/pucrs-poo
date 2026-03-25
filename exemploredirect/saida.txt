@@ -1,0 +1,9 @@
+Digite um número:
+156
+Digite um número:
+87
+Digite um número:
+23
+Digite um número:
+765
+Digite um número:
