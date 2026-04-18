@@ -2,10 +2,10 @@ package dados;
 
 public class Contrato {
     private int id;
-    private int periodo;
+    private int periodOfDays;
 
-    public Contrato(int id, int periodo) {
+    public Contrato(int id, int periodOfDays) {
         this.id = id;
-        this.periodo = periodo;
+        this.periodOfDays = periodOfDays;
     }
 }

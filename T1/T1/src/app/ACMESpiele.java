@@ -26,8 +26,8 @@ public class ACMESpiele {
 
     private void createFileIn() {
         try {
-            BufferedReader streamEntrada = new BufferedReader(new FileReader(dataInFileName));
-            scanner = new Scanner(streamEntrada);
+            BufferedReader streamInput = new BufferedReader(new FileReader(dataInFileName));
+            scanner = new Scanner(streamInput);
         } catch (Exception error) {
             System.out.println("Erro ao criar leitor de entrada via arquivo: " + error);
         }

@@ -1,20 +1,20 @@
 package dados;
 
 public abstract class Cliente {
-    private int numero;
-    private String nome;
+    private int id;
+    private String name;
     private String email;
 
-    private static int contador = 0;
+    private static int counter = 0;
 
-    public Cliente(String nome, String email) {
-        Cliente.contador++;
-        this.numero = Cliente.contador;
-        this.nome = nome;
+    public Cliente(String name, String email) {
+        Cliente.counter++;
+        this.id = Cliente.counter;
+        this.name = name;
         this.email = email;
     }
 
-    public String descrever() {
-        return this.numero + ";" + this.nome + ";" + this.email;
+    public String describe() {
+        return this.id + ";" + this.name + ";" + this.email;
     }
 }

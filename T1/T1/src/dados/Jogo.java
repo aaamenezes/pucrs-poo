@@ -1,15 +1,15 @@
 package dados;
 
 public class Jogo {
-    private int codigo;
-    private String nome;
-    private int ano;
-    private double valorMinuto;
+    private int id;
+    private String name;
+    private int year;
+    private double valuePerMinute;
 
-    public Jogo(int codigo, String nome, int ano, double valorMinuto) {
-        this.codigo = codigo;
-        this.nome = nome;
-        this.ano = ano;
-        this.valorMinuto = valorMinuto;
+    public Jogo(int id, String name, int year, double valuePerMinute) {
+        this.id = id;
+        this.name = name;
+        this.year = year;
+        this.valuePerMinute = valuePerMinute;
     }
 }

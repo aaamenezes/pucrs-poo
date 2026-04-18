@@ -2,11 +2,11 @@ package dados;
 
 public class Corporativo extends Cliente {
     private String cnpj;
-    private String nomeFantasia;
+    private String businessName;
 
-    public Corporativo(String nome, String email, String cnpj, String nomeFantasia) {
-        super(nome, email);
+    public Corporativo(String name, String email, String cnpj, String businessName) {
+        super(name, email);
         this.cnpj = cnpj;
-        this.nomeFantasia = nomeFantasia;
+        this.businessName = businessName;
     }
 }
