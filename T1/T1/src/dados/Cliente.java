@@ -8,8 +8,8 @@ public abstract class Cliente {
     private static int contador = 0;
 
     public Cliente(String nome, String email) {
-        this.contador++;
-        this.numero = this.contador;
+        Cliente.contador++;
+        this.numero = Cliente.contador;
         this.nome = nome;
         this.email = email;
     }
