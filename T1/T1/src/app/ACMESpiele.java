@@ -1,19 +1,24 @@
 package app;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
+import java.io.PrintStream;
+import java.nio.charset.Charset;
+import java.util.Locale;
 import java.util.Scanner;
 
 import dados.Categoria;
 
 public class ACMESpiele {
     private final String dataInFileName = "datain.txt";
-    // private final String nomeArquivoSaida = "dataout.txt";
+    private final String dataOutFileName = "dataout.txt";
 
     private Scanner scanner = new Scanner(System.in);
 
     public ACMESpiele() {
         createFileIn();
+        createFileOut();
     }
 
     public void exec() {
@@ -74,5 +79,16 @@ public class ACMESpiele {
         } catch (Exception error) {
             System.out.println("Erro ao criar leitor de entrada via arquivo: " + error);
         }
+    }
+
+    private void createFileOut() {
+        try {
+            PrintStream streamOut = new PrintStream(new File(dataOutFileName), Charset.forName("UTF-8"));
+            System.setOut(streamOut);
+        } catch (Exception error) {
+            System.out.println(error);
+        }
+
+        Locale.setDefault(Locale.ENGLISH);
     }
 }
