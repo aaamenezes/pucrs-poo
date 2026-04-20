@@ -5,14 +5,18 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.PrintStream;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
 
 import dados.Categoria;
+import dados.Cliente;
+import dados.Individual;
 
 public class ACMESpiele {
     private final String dataInFileName = "datain.txt";
     private final String dataOutFileName = "dataout.txt";
+    private ArrayList<Cliente> clients = new ArrayList<>();
 
     private Scanner scanner = new Scanner(System.in);
 
@@ -22,14 +26,6 @@ public class ACMESpiele {
     }
 
     public void exec() {
-        String line = "";
-
-        line = scanner.nextLine();
-        line = scanner.nextLine();
-        while (!line.equals("-1")) {
-            System.out.println("próxima linha: " + line);
-        }
-
         registerIndividualClients();
         registerCorporateClientes();
         registerGames();
@@ -43,6 +39,33 @@ public class ACMESpiele {
     }
 
     private void registerIndividualClients() {
+        int nextInt = scanner.nextInt();
+        int counter = 1;
+
+        while (nextInt != -1) {
+            int id = nextInt;
+            boolean needToSkipCurrentClient = false;
+
+            if (hasClientById(id)) {
+                System.out.println(counter + ":erro-numero repetido");
+                needToSkipCurrentClient = true;
+            }
+
+            String name = scanner.nextLine();
+            String email = scanner.nextLine();
+            String cpf = scanner.nextLine();
+
+            nextInt = scanner.nextInt();
+
+            if (needToSkipCurrentClient) {
+                continue;
+            } else {
+                Individual individualClient = new Individual(id, name, email, cpf);
+                clients.add(individualClient);
+                System.out.println(counter + ":" + id + ";" + name + ";" + email + ";" + cpf);
+                counter++;
+            }
+        }
     }
 
     private void registerCorporateClientes() {
@@ -90,5 +113,15 @@ public class ACMESpiele {
         }
 
         Locale.setDefault(Locale.ENGLISH);
+    }
+
+    private boolean hasClientById(int id) {
+        for (Cliente client : this.clients) {
+            if (client.getId() == id) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

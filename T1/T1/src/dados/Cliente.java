@@ -14,4 +14,8 @@ public abstract class Cliente {
     public String describe() {
         return this.id + ";" + this.name + ";" + this.email;
     }
+
+    public int getId() {
+        return this.id;
+    }
 }
