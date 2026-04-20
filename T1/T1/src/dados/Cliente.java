@@ -5,11 +5,8 @@ public abstract class Cliente {
     private String name;
     private String email;
 
-    private static int counter = 0;
-
-    public Cliente(String name, String email) {
-        Cliente.counter++;
-        this.id = Cliente.counter;
+    public Cliente(int id, String name, String email) {
+        this.id = id;
         this.name = name;
         this.email = email;
     }
