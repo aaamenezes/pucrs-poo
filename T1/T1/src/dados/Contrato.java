@@ -8,4 +8,8 @@ public class Contrato {
         this.id = id;
         this.periodOfDays = periodOfDays;
     }
+
+    public int getId() {
+        return this.id;
+    }
 }

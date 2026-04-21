@@ -12,4 +12,8 @@ public class Jogo {
         this.year = year;
         this.valuePerMinute = valuePerMinute;
     }
+
+    public int getId() {
+        return this.id;
+    }
 }

@@ -11,6 +11,7 @@ import java.util.Scanner;
 
 import dados.Categoria;
 import dados.Cliente;
+import dados.Contrato;
 import dados.Corporativo;
 import dados.Individual;
 import dados.Jogo;
@@ -20,6 +21,7 @@ public class ACMESpiele {
     private final String dataOutFileName = "dataout.txt";
     private ArrayList<Cliente> clients = new ArrayList<>();
     private ArrayList<Jogo> games = new ArrayList<>();
+    private ArrayList<Contrato> contracts = new ArrayList<>();
 
     private Scanner scanner = new Scanner(System.in);
 
@@ -133,6 +135,36 @@ public class ACMESpiele {
     }
 
     private void registerContracts() {
+        int nextInt = scanner.nextInt();
+        int counter = 1;
+
+        while (nextInt != -1) {
+            int id = nextInt;
+
+            if (hasContractById(id)) {
+                System.out.println(counter + ":erro-id repetido");
+            }
+
+            int periodOfDays = scanner.nextInt();
+            int clientId = scanner.nextInt();
+
+            if (!hasClientById(clientId)) {
+                System.out.println(counter + ":erro-cliente inexistente");
+            }
+
+            int gameId = scanner.nextInt();
+
+            if (!hasGameById(gameId)) {
+                System.out.println(counter + ":erro-jogo inexistente");
+            }
+
+            nextInt = scanner.nextInt();
+
+            Contrato contract = new Contrato(id, periodOfDays);
+            this.contracts.add(contract);
+            System.out.println(counter + ":" + id + ";" + periodOfDays + ";" + clientId + ";" + gameId);
+            counter++;
+        }
     }
 
     private void readGameById() {
@@ -176,6 +208,26 @@ public class ACMESpiele {
     private boolean hasClientById(int id) {
         for (Cliente client : this.clients) {
             if (client.getId() == id) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean hasGameById(int id) {
+        for (Jogo game : this.games) {
+            if (game.getId() == id) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean hasContractById(int id) {
+        for (Contrato contract : this.contracts) {
+            if (contract.getId() == id) {
                 return true;
             }
         }
