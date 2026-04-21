@@ -1,11 +1,14 @@
 package dados;
 
+import java.util.ArrayList;
+
 public class Jogo {
     private int id;
     private String name;
     private int year;
     private double valuePerMinute;
     private String category;
+    private ArrayList<Contrato> contracts = new ArrayList<>();
 
     public Jogo(int id, String name, int year, double valuePerMinute, Categoria category) {
         this.id = id;
@@ -25,5 +28,13 @@ public class Jogo {
 
     public String getCategory() {
         return this.category;
+    }
+
+    public ArrayList<Contrato> getContracts() {
+        return this.contracts;
+    }
+
+    public void clearContracts() {
+        this.contracts.clear();
     }
 }

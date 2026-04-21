@@ -39,7 +39,7 @@ public class ACMESpiele {
         readGameById();
         readGamesByCategory();
         updateClientNameById();
-        clearGameContractsById(1);
+        clearGameContractsById();
         listContracts();
         readHighestContractValueClient();
     }
@@ -205,6 +205,23 @@ public class ACMESpiele {
     }
 
     private void clearGameContractsById(int id) {
+        for (Jogo game : this.games) {
+            if (game.getId() == id) {
+                if (game.getContracts().size() == 0) {
+                    System.out.println("8:nenhum contrato encontrado.");
+                    return;
+                }
+
+                for (Contrato contract : game.getContracts()) {
+                    System.out.println("8:contrato removido: " + contract.getId());
+                }
+
+                game.clearContracts();
+                return;
+            }
+        }
+
+        System.out.println("8:erro-codigo inexistente.");
     }
 
     private void listContracts() {
