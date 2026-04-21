@@ -163,7 +163,7 @@ public class ACMESpiele {
             if (needToSkipCurrentClient) {
                 continue;
             } else {
-                Contrato contract = new Contrato(id, periodOfDays);
+                Contrato contract = new Contrato(id, periodOfDays, clientId, gameId);
                 game.addContract(contract);
                 this.contracts.add(contract);
                 System.out.println("4:" + id + ";" + periodOfDays + ";" + clientId + ";" + gameId);
@@ -236,6 +236,15 @@ public class ACMESpiele {
     }
 
     private void listContracts() {
+        if (this.contracts.size() == 0) {
+            System.out.println("9:erro-nenhum contrato cadastrado");
+            return;
+        }
+
+        for (Contrato contract : this.contracts) {
+            System.out.println("9:" + contract.getId() + ";" + contract.getPeriodOfDays() + ";" + contract.getClientId()
+                    + ";" + contract.getGameId());
+        }
     }
 
     private void readHighestContractValueClient() {
