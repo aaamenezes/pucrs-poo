@@ -19,6 +19,7 @@ import dados.Jogo;
 public class ACMESpiele {
     private final String dataInFileName = "datain.txt";
     private final String dataOutFileName = "dataout.txt";
+
     private ArrayList<Cliente> clients = new ArrayList<>();
     private ArrayList<Jogo> games = new ArrayList<>();
     private ArrayList<Contrato> contracts = new ArrayList<>();
@@ -117,14 +118,14 @@ public class ACMESpiele {
 
             nextInt = scanner.nextInt();
 
-            if (category == null) {
+            if (categoryDescription == null) {
                 System.out.println("3:erro-categoria inexistente");
                 continue;
             }
 
-            Jogo game = new Jogo(id, name, year, valuePerMinute);
+            Jogo game = new Jogo(id, name, year, valuePerMinute, categoryEnum);
             games.add(game);
-            System.out.println("3:" + id + ";" + name + ";" + year + ";" + valuePerMinute + ";" + category);
+            System.out.println("3:" + id + ";" + name + ";" + year + ";" + valuePerMinute + ";" + categoryDescription);
         }
     }
 
@@ -159,7 +160,15 @@ public class ACMESpiele {
         }
     }
 
-    private void readGameById() {
+    private void readGameById(int id) {
+        for (Jogo game : this.games) {
+            if (game.getId() == id) {
+                System.out.println("5:" + id + ";" + game.getName() + ";" + game.getCategory());
+                return;
+            }
+        }
+
+        System.out.println("5:erro-codigo inexistente");
     }
 
     private void readGamesByCategori(Categoria category) {
