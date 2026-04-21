@@ -13,11 +13,13 @@ import dados.Categoria;
 import dados.Cliente;
 import dados.Corporativo;
 import dados.Individual;
+import dados.Jogo;
 
 public class ACMESpiele {
     private final String dataInFileName = "datain.txt";
     private final String dataOutFileName = "dataout.txt";
     private ArrayList<Cliente> clients = new ArrayList<>();
+    private ArrayList<Jogo> games = new ArrayList<>();
 
     private Scanner scanner = new Scanner(System.in);
 
@@ -101,6 +103,33 @@ public class ACMESpiele {
     }
 
     private void registerGames() {
+        int nextInt = scanner.nextInt();
+        int counter = 1;
+
+        while (nextInt != -1) {
+            int id = nextInt;
+
+            if (hasClientById(id)) {
+                System.out.println(counter + ":erro-codigo repetido");
+            }
+
+            String name = scanner.nextLine();
+            int year = scanner.nextInt();
+            double valuePerMinute = scanner.nextDouble();
+            String category = Categoria.valueOf(scanner.nextLine()).getDescription();
+
+            nextInt = scanner.nextInt();
+
+            if (category == null) {
+                System.out.println(counter + ":erro-categoria inexistente");
+                continue;
+            }
+
+            Jogo game = new Jogo(id, name, year, valuePerMinute);
+            games.add(game);
+            System.out.println(counter + ":" + id + ";" + name + ";" + year + ";" + valuePerMinute + ";" + category);
+            counter++;
+        }
     }
 
     private void registerContracts() {
