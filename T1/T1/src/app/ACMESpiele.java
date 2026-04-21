@@ -135,9 +135,11 @@ public class ACMESpiele {
 
         while (nextInt != -1) {
             int id = nextInt;
+            boolean needToSkipCurrentClient = false;
 
             if (hasContractById(id)) {
                 System.out.println("4:erro-id repetido");
+                needToSkipCurrentClient = true;
             }
 
             int periodOfDays = scanner.nextInt();
@@ -145,19 +147,28 @@ public class ACMESpiele {
 
             if (!hasClientById(clientId)) {
                 System.out.println("4:erro-cliente inexistente");
+                needToSkipCurrentClient = true;
             }
 
             int gameId = scanner.nextInt();
+            Jogo game = getGameById(gameId);
 
-            if (!hasGameById(gameId)) {
+            if (game == null) {
                 System.out.println("4:erro-jogo inexistente");
+                needToSkipCurrentClient = true;
             }
 
             nextInt = scanner.nextInt();
 
-            Contrato contract = new Contrato(id, periodOfDays);
-            this.contracts.add(contract);
-            System.out.println("4:" + id + ";" + periodOfDays + ";" + clientId + ";" + gameId);
+            if (needToSkipCurrentClient) {
+                continue;
+            } else {
+                Contrato contract = new Contrato(id, periodOfDays);
+                game.addContract(contract);
+                this.contracts.add(contract);
+                System.out.println("4:" + id + ";" + periodOfDays + ";" + clientId + ";" + gameId);
+            }
+
         }
     }
 
@@ -260,14 +271,14 @@ public class ACMESpiele {
         return false;
     }
 
-    private boolean hasGameById(int id) {
+    private Jogo getGameById(int id) {
         for (Jogo game : this.games) {
             if (game.getId() == id) {
-                return true;
+                return game;
             }
         }
 
-        return false;
+        return null;
     }
 
     private boolean hasContractById(int id) {
