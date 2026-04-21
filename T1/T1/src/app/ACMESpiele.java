@@ -45,14 +45,13 @@ public class ACMESpiele {
 
     private void registerIndividualClients() {
         int nextInt = scanner.nextInt();
-        int counter = 1;
 
         while (nextInt != -1) {
             int id = nextInt;
             boolean needToSkipCurrentClient = false;
 
             if (hasClientById(id)) {
-                System.out.println(counter + ":erro-numero repetido");
+                System.out.println("1:erro-numero repetido");
                 needToSkipCurrentClient = true;
             }
 
@@ -67,22 +66,20 @@ public class ACMESpiele {
             } else {
                 Individual individualClient = new Individual(id, name, email, cpf);
                 clients.add(individualClient);
-                System.out.println(counter + ":" + id + ";" + name + ";" + email + ";" + cpf);
-                counter++;
+                System.out.println("1:" + id + ";" + name + ";" + email + ";" + cpf);
             }
         }
     }
 
     private void registerCorporateClientes() {
         int nextInt = scanner.nextInt();
-        int counter = 1;
 
         while (nextInt != -1) {
             int id = nextInt;
             boolean needToSkipCurrentClient = false;
 
             if (hasClientById(id)) {
-                System.out.println(counter + ":erro-numero repetido");
+                System.out.println("2:erro-numero repetido");
                 needToSkipCurrentClient = true;
             }
 
@@ -98,21 +95,19 @@ public class ACMESpiele {
             } else {
                 Corporativo corporateClient = new Corporativo(id, name, email, cnpj, businessName);
                 clients.add(corporateClient);
-                System.out.println(counter + ":" + id + ";" + name + ";" + email + ";" + cnpj + ";" + businessName);
-                counter++;
+                System.out.println("2:" + id + ";" + name + ";" + email + ";" + cnpj + ";" + businessName);
             }
         }
     }
 
     private void registerGames() {
         int nextInt = scanner.nextInt();
-        int counter = 1;
 
         while (nextInt != -1) {
             int id = nextInt;
 
             if (hasClientById(id)) {
-                System.out.println(counter + ":erro-codigo repetido");
+                System.out.println("3:erro-codigo repetido");
             }
 
             String name = scanner.nextLine();
@@ -123,47 +118,44 @@ public class ACMESpiele {
             nextInt = scanner.nextInt();
 
             if (category == null) {
-                System.out.println(counter + ":erro-categoria inexistente");
+                System.out.println("3:erro-categoria inexistente");
                 continue;
             }
 
             Jogo game = new Jogo(id, name, year, valuePerMinute);
             games.add(game);
-            System.out.println(counter + ":" + id + ";" + name + ";" + year + ";" + valuePerMinute + ";" + category);
-            counter++;
+            System.out.println("3:" + id + ";" + name + ";" + year + ";" + valuePerMinute + ";" + category);
         }
     }
 
     private void registerContracts() {
         int nextInt = scanner.nextInt();
-        int counter = 1;
 
         while (nextInt != -1) {
             int id = nextInt;
 
             if (hasContractById(id)) {
-                System.out.println(counter + ":erro-id repetido");
+                System.out.println("4:erro-id repetido");
             }
 
             int periodOfDays = scanner.nextInt();
             int clientId = scanner.nextInt();
 
             if (!hasClientById(clientId)) {
-                System.out.println(counter + ":erro-cliente inexistente");
+                System.out.println("4:erro-cliente inexistente");
             }
 
             int gameId = scanner.nextInt();
 
             if (!hasGameById(gameId)) {
-                System.out.println(counter + ":erro-jogo inexistente");
+                System.out.println("4:erro-jogo inexistente");
             }
 
             nextInt = scanner.nextInt();
 
             Contrato contract = new Contrato(id, periodOfDays);
             this.contracts.add(contract);
-            System.out.println(counter + ":" + id + ";" + periodOfDays + ";" + clientId + ";" + gameId);
-            counter++;
+            System.out.println("4:" + id + ";" + periodOfDays + ";" + clientId + ";" + gameId);
         }
     }
 
