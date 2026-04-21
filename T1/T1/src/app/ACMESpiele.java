@@ -11,6 +11,7 @@ import java.util.Scanner;
 
 import dados.Categoria;
 import dados.Cliente;
+import dados.Corporativo;
 import dados.Individual;
 
 public class ACMESpiele {
@@ -69,6 +70,34 @@ public class ACMESpiele {
     }
 
     private void registerCorporateClientes() {
+        int nextInt = scanner.nextInt();
+        int counter = 1;
+
+        while (nextInt != -1) {
+            int id = nextInt;
+            boolean needToSkipCurrentClient = false;
+
+            if (hasClientById(id)) {
+                System.out.println(counter + ":erro-numero repetido");
+                needToSkipCurrentClient = true;
+            }
+
+            String name = scanner.nextLine();
+            String email = scanner.nextLine();
+            String cnpj = scanner.nextLine();
+            String businessName = scanner.nextLine();
+
+            nextInt = scanner.nextInt();
+
+            if (needToSkipCurrentClient) {
+                continue;
+            } else {
+                Corporativo corporateClient = new Corporativo(id, name, email, cnpj, businessName);
+                clients.add(corporateClient);
+                System.out.println(counter + ":" + id + ";" + name + ";" + email + ";" + cnpj + ";" + businessName);
+                counter++;
+            }
+        }
     }
 
     private void registerGames() {
