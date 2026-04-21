@@ -18,4 +18,16 @@ public abstract class Cliente {
     public int getId() {
         return this.id;
     }
+
+    public void setName(String name) {
+        if (name.equals("")) {
+            return;
+        }
+
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
 }

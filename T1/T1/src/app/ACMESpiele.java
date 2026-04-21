@@ -38,7 +38,7 @@ public class ACMESpiele {
         registerContracts();
         readGameById();
         readGamesByCategory();
-        updateClientNameById(1, "Novo nome");
+        updateClientNameById();
         clearGameContractsById(1);
         listContracts();
         readHighestContractValueClient();
@@ -193,6 +193,15 @@ public class ACMESpiele {
     }
 
     private void updateClientNameById(int id, String newName) {
+        for (Cliente client : this.clients) {
+            if (client.getId() == id) {
+                client.setName(newName);
+                System.out.println("7:" + id + ";" + newName + ";" + client.getEmail());
+                return;
+            }
+        }
+
+        System.out.println("7:erro-numero inexistente.");
     }
 
     private void clearGameContractsById(int id) {
