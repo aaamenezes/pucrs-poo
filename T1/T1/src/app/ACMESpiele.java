@@ -37,7 +37,7 @@ public class ACMESpiele {
         registerGames();
         registerContracts();
         readGameById();
-        readGamesByCategori(Categoria.ADVENTURE);
+        readGamesByCategory();
         updateClientNameById(1, "Novo nome");
         clearGameContractsById(1);
         listContracts();
@@ -114,7 +114,8 @@ public class ACMESpiele {
             String name = scanner.nextLine();
             int year = scanner.nextInt();
             double valuePerMinute = scanner.nextDouble();
-            String category = Categoria.valueOf(scanner.nextLine()).getDescription();
+            Categoria categoryEnum = Categoria.valueOf(scanner.nextLine());
+            String categoryDescription = categoryEnum.getDescription();
 
             nextInt = scanner.nextInt();
 
@@ -171,7 +172,24 @@ public class ACMESpiele {
         System.out.println("5:erro-codigo inexistente");
     }
 
-    private void readGamesByCategori(Categoria category) {
+    private void readGamesByCategory(String category) {
+        String categoryDescription = Categoria.valueOf(category).getDescription();
+
+        if (categoryDescription == null) {
+            System.out.println("6:erro-categoria inexistente.");
+            return;
+        }
+
+        ArrayList<Jogo> games = getGamesByCategory(categoryDescription);
+
+        if (games.size() == 0) {
+            System.out.println("6:erro-nenhum jogo encontrado.");
+            return;
+        }
+
+        for (Jogo game : games) {
+            System.out.println("6:" + game.getCategory() + ";" + game.getId() + ";" + game.getName());
+        }
     }
 
     private void updateClientNameById(int id, String newName) {
@@ -234,5 +252,17 @@ public class ACMESpiele {
         }
 
         return false;
+    }
+
+    private ArrayList<Jogo> getGamesByCategory(String category) {
+        ArrayList<Jogo> gamesByCategory = new ArrayList<>();
+
+        for (Jogo game : this.games) {
+            if (game.getCategory() == category) {
+                gamesByCategory.add(game);
+            }
+        }
+
+        return gamesByCategory;
     }
 }
