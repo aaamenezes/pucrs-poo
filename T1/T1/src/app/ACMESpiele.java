@@ -51,7 +51,7 @@ public class ACMESpiele {
             int id = nextInt;
             boolean needToSkipCurrentClient = false;
 
-            if (hasClientById(id)) {
+            if (getClientById(id) != null) {
                 System.out.println("1:erro-numero repetido");
                 needToSkipCurrentClient = true;
             }
@@ -79,7 +79,7 @@ public class ACMESpiele {
             int id = nextInt;
             boolean needToSkipCurrentClient = false;
 
-            if (hasClientById(id)) {
+            if (getClientById(id) != null) {
                 System.out.println("2:erro-numero repetido");
                 needToSkipCurrentClient = true;
             }
@@ -107,7 +107,7 @@ public class ACMESpiele {
         while (nextInt != -1) {
             int id = nextInt;
 
-            if (hasClientById(id)) {
+            if (getClientById(id) != null) {
                 System.out.println("3:erro-codigo repetido");
             }
 
@@ -145,7 +145,7 @@ public class ACMESpiele {
             int periodOfDays = scanner.nextInt();
             int clientId = scanner.nextInt();
 
-            if (!hasClientById(clientId)) {
+            if (getClientById(clientId) == null) {
                 System.out.println("4:erro-cliente inexistente");
                 needToSkipCurrentClient = true;
             }
@@ -164,7 +164,7 @@ public class ACMESpiele {
                 continue;
             } else {
                 Contrato contract = new Contrato(id, periodOfDays, clientId, gameId);
-                game.addContract(contract);
+                game.addContractId(contract.getId());
                 this.contracts.add(contract);
                 System.out.println("4:" + id + ";" + periodOfDays + ";" + clientId + ";" + gameId);
             }
@@ -218,13 +218,13 @@ public class ACMESpiele {
     private void clearGameContractsById(int id) {
         for (Jogo game : this.games) {
             if (game.getId() == id) {
-                if (game.getContracts().size() == 0) {
+                if (game.getContractIds().size() == 0) {
                     System.out.println("8:nenhum contrato encontrado.");
                     return;
                 }
 
-                for (Contrato contract : game.getContracts()) {
-                    System.out.println("8:contrato removido: " + contract.getId());
+                for (Integer contractId : game.getContractIds()) {
+                    System.out.println("8:contrato removido: " + contractId);
                 }
 
                 game.clearContracts();
@@ -270,14 +270,14 @@ public class ACMESpiele {
         Locale.setDefault(Locale.ENGLISH);
     }
 
-    private boolean hasClientById(int id) {
+    private Cliente getClientById(int id) {
         for (Cliente client : this.clients) {
             if (client.getId() == id) {
-                return true;
+                return client;
             }
         }
 
-        return false;
+        return null;
     }
 
     private Jogo getGameById(int id) {
