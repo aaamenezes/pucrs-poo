@@ -2,30 +2,30 @@ package dados;
 
 public class Contrato {
     private int id;
-    private int periodOfDays;
-    private Cliente client;
-    private Jogo game;
+    private int periodo;
+    private Cliente cliente;
+    private Jogo jogo;
 
-    public Contrato(int id, int periodOfDays, Cliente client, Jogo game) {
+    public Contrato(int id, int periodo, Cliente cliente, Jogo jogo) {
         this.id = id;
-        this.periodOfDays = periodOfDays;
-        this.client = client;
-        this.game = game;
+        this.periodo = periodo;
+        this.cliente = cliente;
+        this.jogo = jogo;
     }
 
     public int getId() {
         return this.id;
     }
 
-    public int getPeriodOfDays() {
-        return this.periodOfDays;
+    public int getPeriodo() {
+        return this.periodo;
     }
 
-    public Cliente getClient() {
-        return this.client;
+    public Cliente getCliente() {
+        return this.cliente;
     }
 
-    public Jogo getGame() {
-        return this.game;
+    public Jogo getJogo() {
+        return this.jogo;
     }
 }
