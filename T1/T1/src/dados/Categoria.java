@@ -1,17 +1,17 @@
 package dados;
 
 public enum Categoria {
-    ADVENTURE("Aventura"),
-    STRATEGY("Estratégia"),
-    RACING("Corrida");
+    AVENTURA("Aventura"),
+    ESTRATEGIA("Estratégia"),
+    CORRIDA("Corrida");
 
-    private String description;
+    private String descricao;
 
-    private Categoria(String description) {
-        this.description = description;
+    private Categoria(String descricao) {
+        this.descricao = descricao;
     }
 
-    public String getDescription() {
-        return this.description;
+    public String getDescricao() {
+        return this.descricao;
     }
 }

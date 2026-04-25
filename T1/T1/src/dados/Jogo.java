@@ -15,7 +15,7 @@ public class Jogo {
         this.name = name;
         this.year = year;
         this.valuePerMinute = valuePerMinute;
-        this.category = category.getDescription();
+        this.category = category.getDescricao();
         this.contracts = new ArrayList<>();
     }
 

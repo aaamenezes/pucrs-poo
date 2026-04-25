@@ -115,7 +115,7 @@ public class ACMESpiele {
             int year = scanner.nextInt();
             double valuePerMinute = scanner.nextDouble();
             Categoria categoryEnum = Categoria.valueOf(scanner.nextLine());
-            String categoryDescription = categoryEnum.getDescription();
+            String categoryDescription = categoryEnum.getDescricao();
 
             nextInt = scanner.nextInt();
 
@@ -186,7 +186,7 @@ public class ACMESpiele {
     }
 
     private void readGamesByCategory(String category) {
-        String categoryDescription = Categoria.valueOf(category).getDescription();
+        String categoryDescription = Categoria.valueOf(category).getDescricao();
 
         if (categoryDescription == null) {
             System.out.println("6:erro-categoria inexistente.");
