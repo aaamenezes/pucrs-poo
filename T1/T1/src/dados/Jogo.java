@@ -8,7 +8,7 @@ public class Jogo {
     private int year;
     private double valuePerMinute;
     private String category;
-    private ArrayList<Integer> contractIds;
+    private ArrayList<Contrato> contracts;
 
     public Jogo(int id, String name, int year, double valuePerMinute, Categoria category) {
         this.id = id;
@@ -16,7 +16,7 @@ public class Jogo {
         this.year = year;
         this.valuePerMinute = valuePerMinute;
         this.category = category.getDescription();
-        this.contractIds = new ArrayList<>();
+        this.contracts = new ArrayList<>();
     }
 
     public int getId() {
@@ -31,15 +31,19 @@ public class Jogo {
         return this.category;
     }
 
-    public ArrayList<Integer> getContractIds() {
-        return this.contractIds;
+    public ArrayList<Contrato> getContracts() {
+        return this.contracts;
     }
 
     public void clearContracts() {
-        this.contractIds.clear();
+        this.contracts.clear();
     }
 
-    public void addContractId(int contractId) {
-        this.contractIds.add(contractId);
+    public void addContract(Contrato contract) {
+        this.contracts.add(contract);
+    }
+
+    public double getValuePerMinute() {
+        return this.valuePerMinute;
     }
 }

@@ -3,14 +3,14 @@ package dados;
 public class Contrato {
     private int id;
     private int periodOfDays;
-    private int clientId;
-    private int gameId;
+    private Cliente client;
+    private Jogo game;
 
-    public Contrato(int id, int periodOfDays, int clientId, int gameId) {
+    public Contrato(int id, int periodOfDays, Cliente client, Jogo game) {
         this.id = id;
         this.periodOfDays = periodOfDays;
-        this.clientId = clientId;
-        this.gameId = gameId;
+        this.client = client;
+        this.game = game;
     }
 
     public int getId() {
@@ -21,11 +21,11 @@ public class Contrato {
         return this.periodOfDays;
     }
 
-    public int getClientId() {
-        return this.clientId;
+    public Cliente getClient() {
+        return this.client;
     }
 
-    public int getGameId() {
-        return this.gameId;
+    public Jogo getGame() {
+        return this.game;
     }
 }
