@@ -166,7 +166,7 @@ public class ACMESpiele {
             } else {
                 Contrato contract = new Contrato(id, periodOfDays, client, game);
                 game.addContract(contract);
-                client.addContract(contract);
+                client.adicionarContrato(contract);
                 this.contracts.add(contract);
                 System.out.println("4:" + id + ";" + periodOfDays + ";" + clientId + ";" + gameId);
             }
@@ -207,8 +207,8 @@ public class ACMESpiele {
 
     private void updateClientNameById(int id, String newName) {
         for (Cliente client : this.clients) {
-            if (client.getId() == id) {
-                client.setName(newName);
+            if (client.getNumero() == id) {
+                client.setNome(newName);
                 System.out.println("7:" + id + ";" + newName + ";" + client.getEmail());
                 return;
             }
@@ -245,8 +245,8 @@ public class ACMESpiele {
 
         for (Contrato contract : this.contracts) {
             System.out.println(
-                    "9:" + contract.getId() + ";" + contract.getPeriodOfDays() + ";" + contract.getClient().getId()
-                            + ";" + contract.getGame().getId());
+                    "9:" + contract.getId() + ";" + contract.periodoEmDias() + ";" + contract.getClient().getNumero()
+                            + ";" + contract.getJogo().getId());
         }
     }
 
@@ -260,18 +260,19 @@ public class ACMESpiele {
 
         for (Cliente currentClient : this.clients) {
             boolean firstLoop = highestContractValueClient == null;
-            boolean isBigger = currentClient.getTotalContractValue() > highestContractValueClient
-                    .getTotalContractValue();
+            boolean isBigger = currentClient.getSomatorioValorContratos() > highestContractValueClient
+                    .getSomatorioValorContratos();
 
             if (firstLoop || isBigger) {
                 highestContractValueClient = currentClient;
             }
         }
 
-        if (highestContractValueClient.getTotalContractValue() > 0) {
-            System.out.println("10:" + highestContractValueClient.getId() + ";" + highestContractValueClient.getName()
-                    + ";" + highestContractValueClient.getEmail() + ";"
-                    + highestContractValueClient.getTotalContractValue());
+        if (highestContractValueClient.getSomatorioValorContratos() > 0) {
+            System.out
+                    .println("10:" + highestContractValueClient.getNumero() + ";" + highestContractValueClient.getNome()
+                            + ";" + highestContractValueClient.getEmail() + ";"
+                            + highestContractValueClient.getSomatorioValorContratos());
             return;
         }
 
@@ -300,7 +301,7 @@ public class ACMESpiele {
 
     private Cliente getClientById(int id) {
         for (Cliente client : this.clients) {
-            if (client.getId() == id) {
+            if (client.getNumero() == id) {
                 return client;
             }
         }

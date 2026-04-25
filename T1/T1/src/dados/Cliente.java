@@ -3,56 +3,56 @@ package dados;
 import java.util.ArrayList;
 
 public abstract class Cliente {
-    private int id;
-    private String name;
+    private int numero;
+    private String nome;
     private String email;
-    private ArrayList<Contrato> contracts;
-    private double totalContratValue;
+    private ArrayList<Contrato> contratos;
+    private double somatorioValorContratos;
 
-    public Cliente(int id, String name, String email) {
-        this.id = id;
-        this.name = name;
+    public Cliente(int numero, String nome, String email) {
+        this.numero = numero;
+        this.nome = nome;
         this.email = email;
-        this.contracts = new ArrayList<Contrato>();
-        this.totalContratValue = 0;
+        this.contratos = new ArrayList<Contrato>();
+        this.somatorioValorContratos = 0;
     }
 
-    public String describe() {
-        return this.id + ";" + this.name + ";" + this.email;
+    public String descrever() {
+        return this.numero + ";" + this.nome + ";" + this.email;
     }
 
-    public int getId() {
-        return this.id;
+    public int getNumero() {
+        return this.numero;
     }
 
-    public String getName() {
-        return this.name;
+    public String getNome() {
+        return this.nome;
     }
 
-    public double getTotalContractValue() {
-        return this.totalContratValue;
+    public double getSomatorioValorContratos() {
+        return this.somatorioValorContratos;
     }
 
-    public void setName(String name) {
-        if (name.equals("")) {
+    public void setNome(String nome) {
+        if (nome.equals("")) {
             return;
         }
 
-        this.name = name;
+        this.nome = nome;
     }
 
     public String getEmail() {
         return this.email;
     }
 
-    public ArrayList<Contrato> getContracts() {
-        return this.contracts;
+    public ArrayList<Contrato> getContratos() {
+        return this.contratos;
     }
 
-    public void addContract(Contrato contract) {
-        this.contracts.add(contract);
+    public void adicionarContrato(Contrato contrato) {
+        this.contratos.add(contrato);
 
-        double currentContractValue = contract.getPeriodOfDays() * contract.getGame().getValuePerMinute();
-        this.totalContratValue += currentContractValue;
+        double valorContratoAtual = contrato.periodoEmDias() * contrato.getJogo().getValorPorMinuto();
+        this.somatorioValorContratos += valorContratoAtual;
     }
 }
