@@ -15,169 +15,172 @@ import dados.Contrato;
 import dados.Corporativo;
 import dados.Individual;
 import dados.Jogo;
+// O diagrama de classes deve ser atualizado conforme as alterações realizadas e deve ser entregue em arquivo Astah ou PDF.
+// https://moodle.pucrs.br/pluginfile.php/5810311/mod_resource/content/36/ProgOO-Trab1-2026-1.pdf
 
 public class ACMESpiele {
-    private final String dataInFileName = "datain.txt";
-    private final String dataOutFileName = "dataout.txt";
+    private final String nomeArquivoEntrada = "datain.txt";
+    private final String nomeArquivoSaida = "dataout.txt";
 
-    private ArrayList<Cliente> clients = new ArrayList<>();
-    private ArrayList<Jogo> games = new ArrayList<>();
-    private ArrayList<Contrato> contracts = new ArrayList<>();
+    private ArrayList<Cliente> clientes = new ArrayList<>();
+    private ArrayList<Jogo> jogos = new ArrayList<>();
+    private ArrayList<Contrato> contratos = new ArrayList<>();
 
-    private Scanner scanner = new Scanner(System.in);
+    private Scanner leitura = new Scanner(System.in);
 
     public ACMESpiele() {
-        createFileIn();
-        createFileOut();
+        iniciarArquivoEntrada();
+        iniciarArquivoSaida();
     }
 
-    public void exec() {
-        registerIndividualClients();
-        registerCorporateClientes();
-        registerGames();
-        registerContracts();
-        readGameById();
-        readGamesByCategory();
-        updateClientNameById();
-        clearGameContractsById();
-        listContracts();
-        readHighestContractValueClient();
+    public void executar() {
+        cadastrarClientesIndividuais();
+        cadastrarClientesCorporativos();
+        cadastrarJogos();
+        cadastrarContratos();
+        consultarJogoPeloCodigo();
+        consultarJogosPorCategoria();
+        mudarNomeClientePorNumero();
+        limparContratosJogoPorCodigo();
+        listarContratos();
+        consultarClienteMaiorValorContrato();
     }
 
-    private void registerIndividualClients() {
-        int nextInt = scanner.nextInt();
+    private void cadastrarClientesIndividuais() {
+        int proximoValor = leitura.nextInt();
 
-        while (nextInt != -1) {
-            int id = nextInt;
-            boolean needToSkipCurrentClient = false;
+        while (proximoValor != -1) {
+            int numero = proximoValor;
+            boolean pularCliente = false;
 
-            if (getClientById(id) != null) {
+            if (getClientePorNumero(numero) != null) {
                 System.out.println("1:erro-numero repetido");
-                needToSkipCurrentClient = true;
+                pularCliente = true;
             }
 
-            String name = scanner.nextLine();
-            String email = scanner.nextLine();
-            String cpf = scanner.nextLine();
+            String nome = leitura.nextLine();
+            String email = leitura.nextLine();
+            String cpf = leitura.nextLine();
 
-            nextInt = scanner.nextInt();
+            proximoValor = leitura.nextInt();
 
-            if (needToSkipCurrentClient) {
+            if (pularCliente) {
                 continue;
             } else {
-                Individual individualClient = new Individual(id, name, email, cpf);
-                clients.add(individualClient);
-                System.out.println("1:" + id + ";" + name + ";" + email + ";" + cpf);
+                Individual clienteIndividual = new Individual(numero, nome, email, cpf);
+                clientes.add(clienteIndividual);
+                System.out.println("1:" + numero + ";" + nome + ";" + email + ";" + cpf);
             }
         }
     }
 
-    private void registerCorporateClientes() {
-        int nextInt = scanner.nextInt();
+    private void cadastrarClientesCorporativos() {
+        int proximoValor = leitura.nextInt();
 
-        while (nextInt != -1) {
-            int id = nextInt;
-            boolean needToSkipCurrentClient = false;
+        while (proximoValor != -1) {
+            int numero = proximoValor;
+            boolean pularCliente = false;
 
-            if (getClientById(id) != null) {
+            if (getClientePorNumero(numero) != null) {
                 System.out.println("2:erro-numero repetido");
-                needToSkipCurrentClient = true;
+                pularCliente = true;
             }
 
-            String name = scanner.nextLine();
-            String email = scanner.nextLine();
-            String cnpj = scanner.nextLine();
-            String businessName = scanner.nextLine();
+            String nome = leitura.nextLine();
+            String email = leitura.nextLine();
+            String cnpj = leitura.nextLine();
+            String nomeFantasia = leitura.nextLine();
 
-            nextInt = scanner.nextInt();
+            proximoValor = leitura.nextInt();
 
-            if (needToSkipCurrentClient) {
+            if (pularCliente) {
                 continue;
             } else {
-                Corporativo corporateClient = new Corporativo(id, name, email, cnpj, businessName);
-                clients.add(corporateClient);
-                System.out.println("2:" + id + ";" + name + ";" + email + ";" + cnpj + ";" + businessName);
+                Corporativo clienteCorporativo = new Corporativo(numero, nome, email, cnpj, nomeFantasia);
+                clientes.add(clienteCorporativo);
+                System.out.println("2:" + numero + ";" + nome + ";" + email + ";" + cnpj + ";" + nomeFantasia);
             }
         }
     }
 
-    private void registerGames() {
-        int nextInt = scanner.nextInt();
+    private void cadastrarJogos() {
+        int proximoValor = leitura.nextInt();
 
-        while (nextInt != -1) {
-            int id = nextInt;
+        while (proximoValor != -1) {
+            int codigo = proximoValor;
 
-            if (getClientById(id) != null) {
+            if (getJogoPeloCodigo(codigo) != null) {
                 System.out.println("3:erro-codigo repetido");
             }
 
-            String name = scanner.nextLine();
-            int year = scanner.nextInt();
-            double valuePerMinute = scanner.nextDouble();
-            Categoria categoryEnum = Categoria.valueOf(scanner.nextLine());
-            String categoryDescription = categoryEnum.getDescricao();
+            String nome = leitura.nextLine();
+            int ano = leitura.nextInt();
+            double valorMinuto = leitura.nextDouble();
+            Categoria categoriaEnum = Categoria.valueOf(leitura.nextLine());
+            String categoriaDescricao = categoriaEnum.getDescricao();
 
-            nextInt = scanner.nextInt();
+            proximoValor = leitura.nextInt();
 
-            if (categoryDescription == null) {
+            if (categoriaDescricao == null) {
                 System.out.println("3:erro-categoria inexistente");
                 continue;
             }
 
-            Jogo game = new Jogo(id, name, year, valuePerMinute, categoryEnum);
-            games.add(game);
-            System.out.println("3:" + id + ";" + name + ";" + year + ";" + valuePerMinute + ";" + categoryDescription);
+            Jogo jogo = new Jogo(codigo, nome, ano, valorMinuto, categoriaEnum);
+            jogos.add(jogo);
+            System.out.println(
+                    "3:" + codigo + ";" + nome + ";" + ano + ";" + valorMinuto + ";" + categoriaDescricao);
         }
     }
 
-    private void registerContracts() {
-        int nextInt = scanner.nextInt();
+    private void cadastrarContratos() {
+        int proximoValor = leitura.nextInt();
 
-        while (nextInt != -1) {
-            int id = nextInt;
-            boolean needToSkipCurrentClient = false;
+        while (proximoValor != -1) {
+            int id = proximoValor;
+            boolean pularContrato = false;
 
-            if (hasContractById(id)) {
+            if (temContrato(id)) {
                 System.out.println("4:erro-id repetido");
-                needToSkipCurrentClient = true;
+                pularContrato = true;
             }
 
-            int periodOfDays = scanner.nextInt();
-            int clientId = scanner.nextInt();
-            Cliente client = getClientById(clientId);
+            int periodo = leitura.nextInt();
+            int numeroCliente = leitura.nextInt();
+            Cliente cliente = getClientePorNumero(numeroCliente);
 
-            if (client == null) {
+            if (cliente == null) {
                 System.out.println("4:erro-cliente inexistente");
-                needToSkipCurrentClient = true;
+                pularContrato = true;
             }
 
-            int gameId = scanner.nextInt();
-            Jogo game = getGameById(gameId);
+            int codigoJogo = leitura.nextInt();
+            Jogo jogo = getJogoPeloCodigo(codigoJogo);
 
-            if (game == null) {
+            if (jogo == null) {
                 System.out.println("4:erro-jogo inexistente");
-                needToSkipCurrentClient = true;
+                pularContrato = true;
             }
 
-            nextInt = scanner.nextInt();
+            proximoValor = leitura.nextInt();
 
-            if (needToSkipCurrentClient) {
+            if (pularContrato) {
                 continue;
             } else {
-                Contrato contract = new Contrato(id, periodOfDays, client, game);
-                game.addContract(contract);
-                client.adicionarContrato(contract);
-                this.contracts.add(contract);
-                System.out.println("4:" + id + ";" + periodOfDays + ";" + clientId + ";" + gameId);
+                Contrato contrato = new Contrato(id, periodo, cliente, jogo);
+                jogo.adicionarContrato(contrato);
+                cliente.adicionarContrato(contrato);
+                this.contratos.add(contrato);
+                System.out.println("4:" + id + ";" + periodo + ";" + numeroCliente + ";" + codigoJogo);
             }
 
         }
     }
 
-    private void readGameById(int id) {
-        for (Jogo game : this.games) {
-            if (game.getId() == id) {
-                System.out.println("5:" + id + ";" + game.getName() + ";" + game.getCategory());
+    private void consultarJogoPeloCodigo(int codigo) {
+        for (Jogo jogo : this.jogos) {
+            if (jogo.getCodigo() == codigo) {
+                System.out.println("5:" + codigo + ";" + jogo.getNome() + ";" + jogo.getCategoria());
                 return;
             }
         }
@@ -185,31 +188,31 @@ public class ACMESpiele {
         System.out.println("5:erro-codigo inexistente");
     }
 
-    private void readGamesByCategory(String category) {
-        String categoryDescription = Categoria.valueOf(category).getDescricao();
+    private void consultarJogosPorCategoria(String categoria) {
+        String categoriaDescricao = Categoria.valueOf(categoria).getDescricao();
 
-        if (categoryDescription == null) {
+        if (categoriaDescricao == null) {
             System.out.println("6:erro-categoria inexistente.");
             return;
         }
 
-        ArrayList<Jogo> games = getGamesByCategory(categoryDescription);
+        ArrayList<Jogo> jogos = getJogosPorCategoria(categoriaDescricao);
 
-        if (games.size() == 0) {
+        if (jogos.size() == 0) {
             System.out.println("6:erro-nenhum jogo encontrado.");
             return;
         }
 
-        for (Jogo game : games) {
-            System.out.println("6:" + game.getCategory() + ";" + game.getId() + ";" + game.getName());
+        for (Jogo jogo : jogos) {
+            System.out.println("6:" + jogo.getCategoria() + ";" + jogo.getCodigo() + ";" + jogo.getNome());
         }
     }
 
-    private void updateClientNameById(int id, String newName) {
-        for (Cliente client : this.clients) {
-            if (client.getNumero() == id) {
-                client.setNome(newName);
-                System.out.println("7:" + id + ";" + newName + ";" + client.getEmail());
+    private void mudarNomeClientePorNumero(int numero, String novoNome) {
+        for (Cliente cliente : this.clientes) {
+            if (cliente.getNumero() == numero) {
+                cliente.setNome(novoNome);
+                System.out.println("7:" + numero + ";" + novoNome + ";" + cliente.getEmail());
                 return;
             }
         }
@@ -217,19 +220,19 @@ public class ACMESpiele {
         System.out.println("7:erro-numero inexistente.");
     }
 
-    private void clearGameContractsById(int id) {
-        for (Jogo game : this.games) {
-            if (game.getId() == id) {
-                if (game.getContracts().size() == 0) {
+    private void limparContratosJogoPorCodigo(int codigo) {
+        for (Jogo jogo : this.jogos) {
+            if (jogo.getCodigo() == codigo) {
+                if (jogo.getContratos().size() == 0) {
                     System.out.println("8:nenhum contrato encontrado.");
                     return;
                 }
 
-                for (Contrato contract : game.getContracts()) {
-                    System.out.println("8:contrato removido: " + contract.getId());
+                for (Contrato contrato : jogo.getContratos()) {
+                    System.out.println("8:contrato removido: " + contrato.getId());
                 }
 
-                game.clearContracts();
+                jogo.zerarContratos();
                 return;
             }
         }
@@ -237,91 +240,91 @@ public class ACMESpiele {
         System.out.println("8:erro-codigo inexistente.");
     }
 
-    private void listContracts() {
-        if (this.contracts.size() == 0) {
+    private void listarContratos() {
+        if (this.contratos.size() == 0) {
             System.out.println("9:erro-nenhum contrato cadastrado");
             return;
         }
 
-        for (Contrato contract : this.contracts) {
+        for (Contrato contrato : this.contratos) {
             System.out.println(
-                    "9:" + contract.getId() + ";" + contract.periodoEmDias() + ";" + contract.getClient().getNumero()
-                            + ";" + contract.getJogo().getId());
+                    "9:" + contrato.getId() + ";" + contrato.getPeriodo() + ";" + contrato.getCliente().getNumero()
+                            + ";" + contrato.getJogo().getCodigo());
         }
     }
 
-    private void readHighestContractValueClient() {
-        if (this.contracts.size() == 0) {
+    private void consultarClienteMaiorValorContrato() {
+        if (this.contratos.size() == 0) {
             System.out.println("10:erro-nenhum contrato encontrado.");
             return;
         }
 
-        Cliente highestContractValueClient = null;
+        Cliente clienteMaiorValorContrato = null;
 
-        for (Cliente currentClient : this.clients) {
-            boolean firstLoop = highestContractValueClient == null;
-            boolean isBigger = currentClient.getSomatorioValorContratos() > highestContractValueClient
+        for (Cliente clienteAtual : this.clientes) {
+            boolean primeiroLoop = clienteMaiorValorContrato == null;
+            boolean clienteAtualTemValorMaior = clienteAtual.getSomatorioValorContratos() > clienteMaiorValorContrato
                     .getSomatorioValorContratos();
 
-            if (firstLoop || isBigger) {
-                highestContractValueClient = currentClient;
+            if (primeiroLoop || clienteAtualTemValorMaior) {
+                clienteMaiorValorContrato = clienteAtual;
             }
         }
 
-        if (highestContractValueClient.getSomatorioValorContratos() > 0) {
+        if (clienteMaiorValorContrato.getSomatorioValorContratos() > 0) {
             System.out
-                    .println("10:" + highestContractValueClient.getNumero() + ";" + highestContractValueClient.getNome()
-                            + ";" + highestContractValueClient.getEmail() + ";"
-                            + highestContractValueClient.getSomatorioValorContratos());
+                    .println("10:" + clienteMaiorValorContrato.getNumero() + ";" + clienteMaiorValorContrato.getNome()
+                            + ";" + clienteMaiorValorContrato.getEmail() + ";"
+                            + clienteMaiorValorContrato.getSomatorioValorContratos());
             return;
         }
 
         System.out.println("10:erro-nenhum cliente possui contrato ou contratos estão zerados.");
     }
 
-    private void createFileIn() {
+    private void iniciarArquivoEntrada() {
         try {
-            BufferedReader streamInput = new BufferedReader(new FileReader(dataInFileName));
-            scanner = new Scanner(streamInput);
-        } catch (Exception error) {
-            System.out.println("Erro ao criar leitor de entrada via arquivo: " + error);
+            BufferedReader entrada = new BufferedReader(new FileReader(nomeArquivoEntrada));
+            leitura = new Scanner(entrada);
+        } catch (Exception erro) {
+            System.out.println("Erro ao criar leitor de entrada via arquivo: " + erro);
         }
     }
 
-    private void createFileOut() {
+    private void iniciarArquivoSaida() {
         try {
-            PrintStream streamOut = new PrintStream(new File(dataOutFileName), Charset.forName("UTF-8"));
-            System.setOut(streamOut);
-        } catch (Exception error) {
-            System.out.println(error);
+            PrintStream saida = new PrintStream(new File(nomeArquivoSaida), Charset.forName("UTF-8"));
+            System.setOut(saida);
+        } catch (Exception erro) {
+            System.out.println(erro);
         }
 
         Locale.setDefault(Locale.ENGLISH);
     }
 
-    private Cliente getClientById(int id) {
-        for (Cliente client : this.clients) {
-            if (client.getNumero() == id) {
-                return client;
+    private Cliente getClientePorNumero(int numero) {
+        for (Cliente cliente : this.clientes) {
+            if (cliente.getNumero() == numero) {
+                return cliente;
             }
         }
 
         return null;
     }
 
-    private Jogo getGameById(int id) {
-        for (Jogo game : this.games) {
-            if (game.getId() == id) {
-                return game;
+    private Jogo getJogoPeloCodigo(int codigo) {
+        for (Jogo jogo : this.jogos) {
+            if (jogo.getCodigo() == codigo) {
+                return jogo;
             }
         }
 
         return null;
     }
 
-    private boolean hasContractById(int id) {
-        for (Contrato contract : this.contracts) {
-            if (contract.getId() == id) {
+    private boolean temContrato(int id) {
+        for (Contrato contrato : this.contratos) {
+            if (contrato.getId() == id) {
                 return true;
             }
         }
@@ -329,15 +332,15 @@ public class ACMESpiele {
         return false;
     }
 
-    private ArrayList<Jogo> getGamesByCategory(String category) {
-        ArrayList<Jogo> gamesByCategory = new ArrayList<>();
+    private ArrayList<Jogo> getJogosPorCategoria(String categoria) {
+        ArrayList<Jogo> jogosFiltradosPorCategoria = new ArrayList<>();
 
-        for (Jogo game : this.games) {
-            if (game.getCategory() == category) {
-                gamesByCategory.add(game);
+        for (Jogo jogo : this.jogos) {
+            if (jogo.getCategoria().equals(categoria)) {
+                jogosFiltradosPorCategoria.add(jogo);
             }
         }
 
-        return gamesByCategory;
+        return jogosFiltradosPorCategoria;
     }
 }
