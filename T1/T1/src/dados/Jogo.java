@@ -3,47 +3,47 @@ package dados;
 import java.util.ArrayList;
 
 public class Jogo {
-    private int id;
-    private String name;
-    private int year;
-    private double valuePerMinute;
-    private String category;
-    private ArrayList<Contrato> contracts;
+    private int codigo;
+    private String nome;
+    private int ano;
+    private double valorMinuto;
+    private Categoria categoria;
+    private ArrayList<Contrato> contratos;
 
-    public Jogo(int id, String name, int year, double valuePerMinute, Categoria category) {
-        this.id = id;
-        this.name = name;
-        this.year = year;
-        this.valuePerMinute = valuePerMinute;
-        this.category = category.getDescricao();
-        this.contracts = new ArrayList<>();
+    public Jogo(int codigo, String nome, int ano, double valorMinuto, Categoria categoria) {
+        this.codigo = codigo;
+        this.nome = nome;
+        this.ano = ano;
+        this.valorMinuto = valorMinuto;
+        this.categoria = categoria;
+        this.contratos = new ArrayList<>();
     }
 
-    public int getId() {
-        return this.id;
+    public int getCodigo() {
+        return this.codigo;
     }
 
-    public String getName() {
-        return this.name;
+    public String getNome() {
+        return this.nome;
     }
 
-    public String getCategory() {
-        return this.category;
+    public String getCategoria() {
+        return this.categoria.getDescricao();
     }
 
-    public ArrayList<Contrato> getContracts() {
-        return this.contracts;
+    public ArrayList<Contrato> getContratos() {
+        return this.contratos;
     }
 
-    public void clearContracts() {
-        this.contracts.clear();
+    public void zerarContratos() {
+        this.contratos.clear();
     }
 
-    public void addContract(Contrato contract) {
-        this.contracts.add(contract);
+    public void adicionarContrato(Contrato contrato) {
+        this.contratos.add(contrato);
     }
 
-    public double getValuePerMinute() {
-        return this.valuePerMinute;
+    public double getValorMinuto() {
+        return this.valorMinuto;
     }
 }
