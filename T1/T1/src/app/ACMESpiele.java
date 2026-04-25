@@ -144,8 +144,9 @@ public class ACMESpiele {
 
             int periodOfDays = scanner.nextInt();
             int clientId = scanner.nextInt();
+            Cliente client = getClientById(clientId);
 
-            if (getClientById(clientId) == null) {
+            if (client == null) {
                 System.out.println("4:erro-cliente inexistente");
                 needToSkipCurrentClient = true;
             }
@@ -163,8 +164,9 @@ public class ACMESpiele {
             if (needToSkipCurrentClient) {
                 continue;
             } else {
-                Contrato contract = new Contrato(id, periodOfDays, clientId, gameId);
-                game.addContractId(contract.getId());
+                Contrato contract = new Contrato(id, periodOfDays, client, game);
+                game.addContract(contract);
+                client.addContract(contract);
                 this.contracts.add(contract);
                 System.out.println("4:" + id + ";" + periodOfDays + ";" + clientId + ";" + gameId);
             }
@@ -218,13 +220,13 @@ public class ACMESpiele {
     private void clearGameContractsById(int id) {
         for (Jogo game : this.games) {
             if (game.getId() == id) {
-                if (game.getContractIds().size() == 0) {
+                if (game.getContracts().size() == 0) {
                     System.out.println("8:nenhum contrato encontrado.");
                     return;
                 }
 
-                for (Integer contractId : game.getContractIds()) {
-                    System.out.println("8:contrato removido: " + contractId);
+                for (Contrato contract : game.getContracts()) {
+                    System.out.println("8:contrato removido: " + contract.getId());
                 }
 
                 game.clearContracts();
@@ -242,12 +244,38 @@ public class ACMESpiele {
         }
 
         for (Contrato contract : this.contracts) {
-            System.out.println("9:" + contract.getId() + ";" + contract.getPeriodOfDays() + ";" + contract.getClientId()
-                    + ";" + contract.getGameId());
+            System.out.println(
+                    "9:" + contract.getId() + ";" + contract.getPeriodOfDays() + ";" + contract.getClient().getId()
+                            + ";" + contract.getGame().getId());
         }
     }
 
     private void readHighestContractValueClient() {
+        if (this.contracts.size() == 0) {
+            System.out.println("10:erro-nenhum contrato encontrado.");
+            return;
+        }
+
+        Cliente highestContractValueClient = null;
+
+        for (Cliente currentClient : this.clients) {
+            boolean firstLoop = highestContractValueClient == null;
+            boolean isBigger = currentClient.getTotalContractValue() > highestContractValueClient
+                    .getTotalContractValue();
+
+            if (firstLoop || isBigger) {
+                highestContractValueClient = currentClient;
+            }
+        }
+
+        if (highestContractValueClient.getTotalContractValue() > 0) {
+            System.out.println("10:" + highestContractValueClient.getId() + ";" + highestContractValueClient.getName()
+                    + ";" + highestContractValueClient.getEmail() + ";"
+                    + highestContractValueClient.getTotalContractValue());
+            return;
+        }
+
+        System.out.println("10:erro-nenhum cliente possui contrato ou contratos estão zerados.");
     }
 
     private void createFileIn() {
