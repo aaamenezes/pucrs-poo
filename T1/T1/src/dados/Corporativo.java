@@ -9,4 +9,8 @@ public class Corporativo extends Cliente {
         this.cnpj = cnpj;
         this.nomeFantasia = nomeFantasia;
     }
+
+    public String descrever() {
+        return this.getNumero() + ";" + this.getNome() + ";" + this.getEmail();
+    }
 }

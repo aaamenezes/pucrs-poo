@@ -17,9 +17,7 @@ public abstract class Cliente {
         this.somatorioValorContratos = 0;
     }
 
-    public String descrever() {
-        return this.numero + ";" + this.nome + ";" + this.email;
-    }
+    public abstract String descrever();
 
     public int getNumero() {
         return this.numero;

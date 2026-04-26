@@ -7,4 +7,8 @@ public class Individual extends Cliente {
         super(numero, nome, email);
         this.cpf = cpf;
     }
+
+    public String descrever() {
+        return this.getNumero() + ";" + this.getNome() + ";" + this.getEmail();
+    }
 }
