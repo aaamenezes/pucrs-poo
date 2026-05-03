@@ -234,6 +234,11 @@ public class ACMESpiele {
     }
 
     private void consultarJogosPorCategoria(String categoria) {
+        if (this.bancoJogos.getQuantidade() == 0) {
+            System.out.println("6:erro-nenhum jogo encontrado.");
+            return;
+        }
+
         Categoria categoriaEnum = CategoriaUtils.converterStringEnum(categoria);
 
         if (categoriaEnum == null) {
@@ -242,11 +247,6 @@ public class ACMESpiele {
         }
 
         ArrayList<Jogo> jogosDaCategoria = this.bancoJogos.getJogosPorCategoria(categoriaEnum);
-
-        if (jogosDaCategoria.size() == 0) {
-            System.out.println("6:erro-nenhum jogo encontrado.");
-            return;
-        }
 
         for (Jogo jogo : jogosDaCategoria) {
             System.out.println("6:" + jogo.getCategoria() + ";" + jogo.getCodigo() + ";" + jogo.getNome());
@@ -289,7 +289,7 @@ public class ACMESpiele {
     }
 
     private void listarContratos() {
-        if (this.bancoContratos.size() == 0) {
+        if (this.bancoContratos.getQuantidade() == 0) {
             System.out.println("9:erro-nenhum contrato cadastrado.");
             return;
         }
@@ -300,7 +300,7 @@ public class ACMESpiele {
     }
 
     private void consultarClienteMaiorValorContrato() {
-        if (this.bancoContratos.size() == 0) {
+        if (this.bancoContratos.getQuantidade() == 0) {
             System.out.println("10:erro-nenhum contrato encontrado.");
             return;
         }
