@@ -217,8 +217,6 @@ public class ACMESpiele {
             }
 
             Contrato contrato = new Contrato(id, periodo, cliente, jogo);
-            jogo.adicionarContrato(contrato);
-            cliente.adicionarContrato(contrato);
             this.bancoContratos.add(contrato);
             System.out.println("4:" + contrato.descrever());
         }
@@ -271,17 +269,18 @@ public class ACMESpiele {
     private void limparContratosJogoPorCodigo(int codigo) {
         for (Jogo jogo : this.bancoJogos.getJogos()) {
             if (jogo.getCodigo() == codigo) {
-                if (jogo.getContratos().size() == 0) {
+                int codigoJogo = jogo.getCodigo();
+                ArrayList<Contrato> contratosDoJogo = this.bancoContratos.getContratosPorCodigoJogo(codigoJogo);
+
+                if (contratosDoJogo.size() == 0) {
                     System.out.println("8:nenhum contrato encontrado.");
                     return;
                 }
 
-                for (Contrato contrato : jogo.getContratos()) {
-                    System.out.println("8:contrato removido: " + contrato.getId());
-                    this.bancoContratos.remove(contrato);
+                for (Contrato contratoParaRemover : contratosDoJogo) {
+                    System.out.println("8:contrato removido: " + contratoParaRemover.getId());
+                    this.bancoContratos.remove(contratoParaRemover);
                 }
-
-                jogo.zerarContratos();
                 return;
             }
         }
