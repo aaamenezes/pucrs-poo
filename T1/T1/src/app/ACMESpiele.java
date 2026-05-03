@@ -17,6 +17,7 @@ import dados.Individual;
 import dados.Jogo;
 
 import database.BancoClientes;
+import database.BancoJogos;
 
 import utils.CategoriaUtils;
 // O diagrama de classes deve ser atualizado conforme as alterações realizadas e deve ser entregue em arquivo Astah ou PDF.
@@ -27,7 +28,7 @@ public class ACMESpiele {
     private final String nomeArquivoSaida = "dataout.txt";
 
     private BancoClientes bancoClientes = new BancoClientes();
-    private ArrayList<Jogo> jogos = new ArrayList<>();
+    private BancoJogos bancoJogos = new BancoJogos();
     private ArrayList<Contrato> contratos = new ArrayList<>();
 
     private Scanner leitura = new Scanner(System.in);
@@ -154,7 +155,7 @@ public class ACMESpiele {
             }
 
             Jogo jogo = new Jogo(codigo, nome, ano, valorMinuto, categoriaEnum);
-            jogos.add(jogo);
+            this.bancoJogos.add(jogo);
             System.out.println(
                     "3:" + codigo + ";" + nome + ";" + ano + ";" + valorMinuto + ";" + categoriaEnum);
         }
@@ -206,7 +207,7 @@ public class ACMESpiele {
     }
 
     private void consultarJogoPeloCodigo(int codigo) {
-        for (Jogo jogo : this.jogos) {
+        for (Jogo jogo : this.bancoJogos.getJogos()) {
             if (jogo.getCodigo() == codigo) {
                 System.out.println("5:" + codigo + ";" + jogo.getNome() + ";" + jogo.getCategoria());
                 return;
@@ -251,7 +252,7 @@ public class ACMESpiele {
     }
 
     private void limparContratosJogoPorCodigo(int codigo) {
-        for (Jogo jogo : this.jogos) {
+        for (Jogo jogo : this.bancoJogos.getJogos()) {
             if (jogo.getCodigo() == codigo) {
                 if (jogo.getContratos().size() == 0) {
                     System.out.println("8:nenhum contrato encontrado.");
@@ -350,7 +351,7 @@ public class ACMESpiele {
     }
 
     private Jogo getJogoPeloCodigo(int codigo) {
-        for (Jogo jogo : this.jogos) {
+        for (Jogo jogo : this.bancoJogos.getJogos()) {
             if (jogo.getCodigo() == codigo) {
                 return jogo;
             }
@@ -372,7 +373,7 @@ public class ACMESpiele {
     private ArrayList<Jogo> getJogosPorCategoria(Categoria categoria) {
         ArrayList<Jogo> jogosFiltradosPorCategoria = new ArrayList<>();
 
-        for (Jogo jogo : this.jogos) {
+        for (Jogo jogo : this.bancoJogos.getJogos()) {
             if (jogo.getCategoria() == categoria) {
                 jogosFiltradosPorCategoria.add(jogo);
             }
