@@ -135,8 +135,7 @@ public class ACMESpiele {
             double valorMinuto = leitura.nextDouble();
             leitura.nextLine();
 
-            Categoria categoriaEnum = Categoria.valueOf(leitura.nextLine());
-            String categoriaDescricao = categoriaEnum.getDescricao();
+            Categoria categoriaEnum = CategoriaUtils.converterStringEnum(leitura.nextLine());
 
             proximoValor = leitura.nextInt();
             leitura.nextLine();
