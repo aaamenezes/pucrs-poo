@@ -125,9 +125,11 @@ public class ACMESpiele {
 
         while (proximoValor != -1) {
             int codigo = proximoValor;
+            boolean pularCliente = false;
 
             if (getJogoPeloCodigo(codigo) != null) {
                 System.out.println("3:erro-codigo repetido.");
+                pularCliente = true;
             }
 
             String nome = leitura.nextLine();
@@ -139,6 +141,10 @@ public class ACMESpiele {
 
             proximoValor = leitura.nextInt();
             leitura.nextLine();
+
+            if (pularCliente) {
+                continue;
+            }
 
             if (categoriaEnum == null) {
                 System.out.println("3:erro-categoria inexistente.");
