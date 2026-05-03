@@ -27,8 +27,8 @@ public class Jogo {
         return this.nome;
     }
 
-    public String getCategoria() {
-        return this.categoria.getDescricao();
+    public Categoria getCategoria() {
+        return this.categoria;
     }
 
     public ArrayList<Contrato> getContratos() {
