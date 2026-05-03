@@ -15,6 +15,8 @@ import dados.Contrato;
 import dados.Corporativo;
 import dados.Individual;
 import dados.Jogo;
+
+import utils.CategoriaUtils;
 // O diagrama de classes deve ser atualizado conforme as alterações realizadas e deve ser entregue em arquivo Astah ou PDF.
 // https://moodle.pucrs.br/pluginfile.php/5810311/mod_resource/content/36/ProgOO-Trab1-2026-1.pdf
 
@@ -48,9 +50,10 @@ public class ACMESpiele {
 
         int numeroParaMudar = leitura.nextInt();
         leitura.nextLine();
-        mudarNomeClientePorNumero(numeroParaMudar, "Fulano de Tal");
+        mudarNomeClientePorNumero(numeroParaMudar, leitura.nextLine());
 
-        limparContratosJogoPorCodigo(333);
+        int codigoJogoParaRemover = leitura.nextInt();
+        limparContratosJogoPorCodigo(codigoJogoParaRemover);
         listarContratos();
         consultarClienteMaiorValorContrato();
     }
@@ -146,7 +149,7 @@ public class ACMESpiele {
             Jogo jogo = new Jogo(codigo, nome, ano, valorMinuto, categoriaEnum);
             jogos.add(jogo);
             System.out.println(
-                    "3:" + codigo + ";" + nome + ";" + ano + ";" + valorMinuto + ";" + categoriaDescricao);
+                    "3:" + codigo + ";" + nome + ";" + ano + ";" + valorMinuto + ";" + categoriaEnum);
         }
     }
 
@@ -207,14 +210,14 @@ public class ACMESpiele {
     }
 
     private void consultarJogosPorCategoria(String categoria) {
-        String categoriaDescricao = Categoria.valueOf(categoria).getDescricao();
+        Categoria categoriaEnum = CategoriaUtils.converterStringEnum(categoria);
 
-        if (categoriaDescricao == null) {
+        if (categoriaEnum == null) {
             System.out.println("6:erro-categoria inexistente.");
             return;
         }
 
-        ArrayList<Jogo> jogos = getJogosPorCategoria(categoriaDescricao);
+        ArrayList<Jogo> jogos = getJogosPorCategoria(categoriaEnum);
 
         if (jogos.size() == 0) {
             System.out.println("6:erro-nenhum jogo encontrado.");
@@ -229,8 +232,10 @@ public class ACMESpiele {
     private void mudarNomeClientePorNumero(int numero, String novoNome) {
         for (Cliente cliente : this.clientes) {
             if (cliente.getNumero() == numero) {
+
                 cliente.setNome(novoNome);
-                System.out.println("7:" + numero + ";" + novoNome + ";" + cliente.getEmail());
+                System.out.println(
+                        "7:" + numero + ";" + novoNome + ";" + cliente.getEmail() + ";" + cliente.getDocumento());
                 return;
             }
         }
@@ -248,6 +253,7 @@ public class ACMESpiele {
 
                 for (Contrato contrato : jogo.getContratos()) {
                     System.out.println("8:contrato removido: " + contrato.getId());
+                    this.contratos.remove(contrato);
                 }
 
                 jogo.zerarContratos();
@@ -352,11 +358,11 @@ public class ACMESpiele {
         return false;
     }
 
-    private ArrayList<Jogo> getJogosPorCategoria(String categoria) {
+    private ArrayList<Jogo> getJogosPorCategoria(Categoria categoria) {
         ArrayList<Jogo> jogosFiltradosPorCategoria = new ArrayList<>();
 
         for (Jogo jogo : this.jogos) {
-            if (jogo.getCategoria().equals(categoria)) {
+            if (jogo.getCategoria() == categoria) {
                 jogosFiltradosPorCategoria.add(jogo);
             }
         }
