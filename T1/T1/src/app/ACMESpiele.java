@@ -106,7 +106,7 @@ public class ACMESpiele {
             }
 
             Individual clienteIndividual = new Individual(numero, nome, email, cpf);
-            this.bancoClientes.add(clienteIndividual);
+            this.bancoClientes.adicionar(clienteIndividual);
             System.out.println("1:" + clienteIndividual.descrever() + ";" + cpf);
         }
     }
@@ -137,7 +137,7 @@ public class ACMESpiele {
             }
 
             Corporativo clienteCorporativo = new Corporativo(numero, nome, email, cnpj, nomeFantasia);
-            this.bancoClientes.add(clienteCorporativo);
+            this.bancoClientes.adicionar(clienteCorporativo);
             System.out.println("2:" + clienteCorporativo.descrever() + ";" + cnpj + ";" + nomeFantasia);
         }
     }
@@ -175,7 +175,7 @@ public class ACMESpiele {
             }
 
             Jogo jogo = new Jogo(codigo, nome, ano, valorMinuto, categoriaEnum);
-            this.bancoJogos.add(jogo);
+            this.bancoJogos.adicionar(jogo);
             System.out.println("3:" + jogo.descrever() + ";" + ano + ";" + valorMinuto + ";" + categoriaEnum);
         }
     }
@@ -217,7 +217,7 @@ public class ACMESpiele {
             }
 
             Contrato contrato = new Contrato(id, periodo, cliente, jogo);
-            this.bancoContratos.add(contrato);
+            this.bancoContratos.adicionar(contrato);
             System.out.println("4:" + contrato.descrever());
         }
     }

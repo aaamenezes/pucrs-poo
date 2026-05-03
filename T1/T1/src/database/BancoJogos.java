@@ -19,7 +19,7 @@ public class BancoJogos {
         return jogosResultado;
     }
 
-    public void add(Jogo jogo) {
+    public void adicionar(Jogo jogo) {
         this.jogos.add(jogo);
         this.quantidade++;
     }

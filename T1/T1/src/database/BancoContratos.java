@@ -30,7 +30,7 @@ public class BancoContratos {
         return contratosResultado;
     }
 
-    public void add(Contrato contrato) {
+    public void adicionar(Contrato contrato) {
         this.contratos.add(contrato);
         this.quantidade++;
     }

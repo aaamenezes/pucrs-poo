@@ -17,7 +17,7 @@ public class BancoClientes {
         return clientesResultado;
     }
 
-    public void add(Cliente cliente) {
+    public void adicionar(Cliente cliente) {
         this.clientes.add(cliente);
     }
 
