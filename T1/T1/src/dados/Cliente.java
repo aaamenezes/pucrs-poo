@@ -53,4 +53,6 @@ public abstract class Cliente {
         double valorContratoAtual = contrato.getPeriodo() * contrato.getJogo().getValorMinuto();
         this.somatorioValorContratos += valorContratoAtual;
     }
+
+    public abstract String getDocumento();
 }

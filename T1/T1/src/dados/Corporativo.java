@@ -13,4 +13,8 @@ public class Corporativo extends Cliente {
     public String descrever() {
         return this.getNumero() + ";" + this.getNome() + ";" + this.getEmail();
     }
+
+    public String getDocumento() {
+        return this.cnpj;
+    }
 }
