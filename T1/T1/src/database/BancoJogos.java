@@ -2,6 +2,7 @@ package database;
 
 import java.util.ArrayList;
 
+import dados.Categoria;
 import dados.Jogo;
 
 public class BancoJogos {
@@ -19,5 +20,27 @@ public class BancoJogos {
 
     public void add(Jogo jogo) {
         this.jogos.add(jogo);
+    }
+
+    public Jogo getJogoPeloCodigo(int codigo) {
+        for (Jogo jogo : this.jogos) {
+            if (jogo.getCodigo() == codigo) {
+                return jogo;
+            }
+        }
+
+        return null;
+    }
+
+    public ArrayList<Jogo> getJogosPorCategoria(Categoria categoria) {
+        ArrayList<Jogo> jogosFiltradosPorCategoria = new ArrayList<>();
+
+        for (Jogo jogo : this.jogos) {
+            if (jogo.getCategoria() == categoria) {
+                jogosFiltradosPorCategoria.add(jogo);
+            }
+        }
+
+        return jogosFiltradosPorCategoria;
     }
 }

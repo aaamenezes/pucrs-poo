@@ -28,4 +28,14 @@ public class BancoContratos {
     public int size() {
         return this.contratos.size();
     }
+
+    public boolean temContrato(int id) {
+        for (Contrato contrato : this.contratos) {
+            if (contrato.getId() == id) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

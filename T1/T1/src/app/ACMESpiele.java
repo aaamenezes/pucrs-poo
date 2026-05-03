@@ -77,6 +77,10 @@ public class ACMESpiele {
         consultarClienteMaiorValorContrato();
     }
 
+    /**
+     * Métodos usados no executar()
+     */
+
     private void cadastrarClientesIndividuais() {
         int proximoValor = leitura.nextInt();
         leitura.nextLine();
@@ -85,7 +89,7 @@ public class ACMESpiele {
             int numero = proximoValor;
             boolean pularCliente = false;
 
-            if (getClientePorNumero(numero) != null) {
+            if (this.bancoClientes.getClientePorNumero(numero) != null) {
                 System.out.println("1:erro-numero repetido");
                 pularCliente = true;
             }
@@ -115,7 +119,7 @@ public class ACMESpiele {
             int numero = proximoValor;
             boolean pularCliente = false;
 
-            if (getClientePorNumero(numero) != null) {
+            if (this.bancoClientes.getClientePorNumero(numero) != null) {
                 System.out.println("2:erro-numero repetido.");
                 pularCliente = true;
             }
@@ -146,7 +150,7 @@ public class ACMESpiele {
             int codigo = proximoValor;
             boolean pularCliente = false;
 
-            if (getJogoPeloCodigo(codigo) != null) {
+            if (this.bancoJogos.getJogoPeloCodigo(codigo) != null) {
                 System.out.println("3:erro-codigo repetido.");
                 pularCliente = true;
             }
@@ -185,14 +189,14 @@ public class ACMESpiele {
             int id = proximoValor;
             boolean pularContrato = false;
 
-            if (temContrato(id)) {
+            if (this.bancoContratos.temContrato(id)) {
                 System.out.println("4:erro-id repetido");
                 pularContrato = true;
             }
 
             int periodo = leitura.nextInt();
             int numeroCliente = leitura.nextInt();
-            Cliente cliente = getClientePorNumero(numeroCliente);
+            Cliente cliente = this.bancoClientes.getClientePorNumero(numeroCliente);
 
             if (cliente == null) {
                 System.out.println("4:erro-cliente inexistente.");
@@ -200,7 +204,7 @@ public class ACMESpiele {
             }
 
             int codigoJogo = leitura.nextInt();
-            Jogo jogo = getJogoPeloCodigo(codigoJogo);
+            Jogo jogo = this.bancoJogos.getJogoPeloCodigo(codigoJogo);
 
             if (jogo == null) {
                 System.out.println("4:erro-jogo inexistente.");
@@ -240,7 +244,7 @@ public class ACMESpiele {
             return;
         }
 
-        ArrayList<Jogo> jogos = getJogosPorCategoria(categoriaEnum);
+        ArrayList<Jogo> jogos = this.bancoJogos.getJogosPorCategoria(categoriaEnum);
 
         if (jogos.size() == 0) {
             System.out.println("6:erro-nenhum jogo encontrado.");
@@ -332,6 +336,10 @@ public class ACMESpiele {
         System.out.println("10:erro-nenhum cliente possui contrato ou contratos estão zerados.");
     }
 
+    /**
+     * Métodos usados no construtor
+     */
+
     private void iniciarArquivoEntrada() {
         try {
             BufferedReader entrada = new BufferedReader(new FileReader(nomeArquivoEntrada));
@@ -353,47 +361,5 @@ public class ACMESpiele {
         }
 
         Locale.setDefault(Locale.ENGLISH);
-    }
-
-    private Cliente getClientePorNumero(int numero) {
-        for (Cliente cliente : this.bancoClientes.getClientes()) {
-            if (cliente.getNumero() == numero) {
-                return cliente;
-            }
-        }
-
-        return null;
-    }
-
-    private Jogo getJogoPeloCodigo(int codigo) {
-        for (Jogo jogo : this.bancoJogos.getJogos()) {
-            if (jogo.getCodigo() == codigo) {
-                return jogo;
-            }
-        }
-
-        return null;
-    }
-
-    private boolean temContrato(int id) {
-        for (Contrato contrato : this.bancoContratos.getContratos()) {
-            if (contrato.getId() == id) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private ArrayList<Jogo> getJogosPorCategoria(Categoria categoria) {
-        ArrayList<Jogo> jogosFiltradosPorCategoria = new ArrayList<>();
-
-        for (Jogo jogo : this.bancoJogos.getJogos()) {
-            if (jogo.getCategoria() == categoria) {
-                jogosFiltradosPorCategoria.add(jogo);
-            }
-        }
-
-        return jogosFiltradosPorCategoria;
     }
 }

@@ -20,4 +20,14 @@ public class BancoClientes {
     public void add(Cliente cliente) {
         this.clientes.add(cliente);
     }
+
+    public Cliente getClientePorNumero(int numero) {
+        for (Cliente cliente : this.clientes) {
+            if (cliente.getNumero() == numero) {
+                return cliente;
+            }
+        }
+
+        return null;
+    }
 }
