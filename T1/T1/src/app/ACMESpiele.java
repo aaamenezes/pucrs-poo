@@ -43,10 +43,10 @@ public class ACMESpiele {
 
         int codigoConsulta = leitura.nextInt();
         leitura.nextLine();
-        consultarJogoPeloCodigo(codigoConsulta); // 444
+        consultarJogoPeloCodigo(codigoConsulta);
 
         String categoriaConsulta = leitura.nextLine();
-        consultarJogosPorCategoria(categoriaConsulta); // AVENTURA
+        consultarJogosPorCategoria(categoriaConsulta);
 
         int numeroParaMudar = leitura.nextInt();
         leitura.nextLine();
