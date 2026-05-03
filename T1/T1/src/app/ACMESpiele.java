@@ -16,6 +16,8 @@ import dados.Corporativo;
 import dados.Individual;
 import dados.Jogo;
 
+import database.BancoClientes;
+
 import utils.CategoriaUtils;
 // O diagrama de classes deve ser atualizado conforme as alterações realizadas e deve ser entregue em arquivo Astah ou PDF.
 // https://moodle.pucrs.br/pluginfile.php/5810311/mod_resource/content/36/ProgOO-Trab1-2026-1.pdf
@@ -24,7 +26,7 @@ public class ACMESpiele {
     private final String nomeArquivoEntrada = "datain.txt";
     private final String nomeArquivoSaida = "dataout.txt";
 
-    private ArrayList<Cliente> clientes = new ArrayList<>();
+    private BancoClientes bancoClientes = new BancoClientes();
     private ArrayList<Jogo> jogos = new ArrayList<>();
     private ArrayList<Contrato> contratos = new ArrayList<>();
 
@@ -82,7 +84,7 @@ public class ACMESpiele {
                 continue;
             } else {
                 Individual clienteIndividual = new Individual(numero, nome, email, cpf);
-                clientes.add(clienteIndividual);
+                this.bancoClientes.add(clienteIndividual);
                 System.out.println("1:" + numero + ";" + nome + ";" + email + ";" + cpf);
             }
         }
@@ -113,7 +115,7 @@ public class ACMESpiele {
                 continue;
             } else {
                 Corporativo clienteCorporativo = new Corporativo(numero, nome, email, cnpj, nomeFantasia);
-                clientes.add(clienteCorporativo);
+                this.bancoClientes.add(clienteCorporativo);
                 System.out.println("2:" + numero + ";" + nome + ";" + email + ";" + cnpj + ";" + nomeFantasia);
             }
         }
@@ -235,7 +237,7 @@ public class ACMESpiele {
     }
 
     private void mudarNomeClientePorNumero(int numero, String novoNome) {
-        for (Cliente cliente : this.clientes) {
+        for (Cliente cliente : this.bancoClientes.getClientes()) {
             if (cliente.getNumero() == numero) {
 
                 cliente.setNome(novoNome);
@@ -288,9 +290,9 @@ public class ACMESpiele {
             return;
         }
 
-        Cliente clienteMaiorValorContrato = this.clientes.get(0);
+        Cliente clienteMaiorValorContrato = this.bancoClientes.getClientes().get(0);
 
-        for (Cliente clienteAtual : this.clientes) {
+        for (Cliente clienteAtual : this.bancoClientes.getClientes()) {
             if (!(clienteAtual instanceof Individual)) {
                 continue;
             }
@@ -338,7 +340,7 @@ public class ACMESpiele {
     }
 
     private Cliente getClientePorNumero(int numero) {
-        for (Cliente cliente : this.clientes) {
+        for (Cliente cliente : this.bancoClientes.getClientes()) {
             if (cliente.getNumero() == numero) {
                 return cliente;
             }
