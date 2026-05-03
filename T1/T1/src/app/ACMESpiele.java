@@ -40,25 +40,40 @@ public class ACMESpiele {
     }
 
     public void executar() {
+        // 1. Cadastrar clientes individuais
         cadastrarClientesIndividuais();
+
+        // 2. Cadastrar clientes corporativos
         cadastrarClientesCorporativos();
+
+        // 3. Cadastrar jogos
         cadastrarJogos();
+
+        // 4. Cadastrar contratos
         cadastrarContratos();
 
+        // 5. Consultar um jogo pelo código
         int codigoConsulta = leitura.nextInt();
         leitura.nextLine();
         consultarJogoPeloCodigo(codigoConsulta);
 
+        // 6. Consultar jogos de uma categoria
         String categoriaConsulta = leitura.nextLine();
         consultarJogosPorCategoria(categoriaConsulta);
 
+        // 7. Mudar nome de um determinado cliente
         int numeroParaMudar = leitura.nextInt();
         leitura.nextLine();
         mudarNomeClientePorNumero(numeroParaMudar, leitura.nextLine());
 
+        // 8. Remover contratos de um determinado jogo
         int codigoJogoParaRemover = leitura.nextInt();
         limparContratosJogoPorCodigo(codigoJogoParaRemover);
+
+        // 9. Listar todos os contratos
         listarContratos();
+
+        // 10. Mostra o cliente com maior valor contratado
         consultarClienteMaiorValorContrato();
     }
 
