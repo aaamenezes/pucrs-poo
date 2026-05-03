@@ -17,4 +17,8 @@ public class Corporativo extends Cliente {
     public String getDocumento() {
         return this.cnpj;
     }
+
+    public String getNomeFantasia() {
+        return this.nomeFantasia;
+    }
 }

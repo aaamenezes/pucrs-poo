@@ -50,4 +50,8 @@ public class Jogo {
     public String descrever() {
         return this.codigo + ";" + this.nome;
     }
+
+    public int getAno() {
+        return this.ano;
+    }
 }
