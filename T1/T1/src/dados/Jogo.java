@@ -46,4 +46,8 @@ public class Jogo {
     public double getValorMinuto() {
         return this.valorMinuto;
     }
+
+    public String descrever() {
+        return this.codigo + ";" + this.nome;
+    }
 }

@@ -28,4 +28,8 @@ public class Contrato {
     public Jogo getJogo() {
         return this.jogo;
     }
+
+    public String descrever() {
+        return this.id + ";" + this.periodo + ";" + this.cliente.getNumero() + ";" + this.jogo.getCodigo();
+    }
 }

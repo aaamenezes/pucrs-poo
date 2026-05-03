@@ -103,11 +103,11 @@ public class ACMESpiele {
 
             if (pularCliente) {
                 continue;
-            } else {
-                Individual clienteIndividual = new Individual(numero, nome, email, cpf);
-                this.bancoClientes.add(clienteIndividual);
-                System.out.println("1:" + numero + ";" + nome + ";" + email + ";" + cpf);
             }
+
+            Individual clienteIndividual = new Individual(numero, nome, email, cpf);
+            this.bancoClientes.add(clienteIndividual);
+            System.out.println("1:" + clienteIndividual.descrever() + ";" + cpf);
         }
     }
 
@@ -134,11 +134,11 @@ public class ACMESpiele {
 
             if (pularCliente) {
                 continue;
-            } else {
-                Corporativo clienteCorporativo = new Corporativo(numero, nome, email, cnpj, nomeFantasia);
-                this.bancoClientes.add(clienteCorporativo);
-                System.out.println("2:" + numero + ";" + nome + ";" + email + ";" + cnpj + ";" + nomeFantasia);
             }
+
+            Corporativo clienteCorporativo = new Corporativo(numero, nome, email, cnpj, nomeFantasia);
+            this.bancoClientes.add(clienteCorporativo);
+            System.out.println("2:" + clienteCorporativo.descrever() + ";" + cnpj + ";" + nomeFantasia);
         }
     }
 
@@ -176,8 +176,7 @@ public class ACMESpiele {
 
             Jogo jogo = new Jogo(codigo, nome, ano, valorMinuto, categoriaEnum);
             this.bancoJogos.add(jogo);
-            System.out.println(
-                    "3:" + codigo + ";" + nome + ";" + ano + ";" + valorMinuto + ";" + categoriaEnum);
+            System.out.println("3:" + jogo.descrever() + ";" + ano + ";" + valorMinuto + ";" + categoriaEnum);
         }
     }
 
@@ -215,20 +214,20 @@ public class ACMESpiele {
 
             if (pularContrato) {
                 continue;
-            } else {
-                Contrato contrato = new Contrato(id, periodo, cliente, jogo);
-                jogo.adicionarContrato(contrato);
-                cliente.adicionarContrato(contrato);
-                this.bancoContratos.add(contrato);
-                System.out.println("4:" + id + ";" + periodo + ";" + numeroCliente + ";" + codigoJogo);
             }
+
+            Contrato contrato = new Contrato(id, periodo, cliente, jogo);
+            jogo.adicionarContrato(contrato);
+            cliente.adicionarContrato(contrato);
+            this.bancoContratos.add(contrato);
+            System.out.println("4:" + contrato.descrever());
         }
     }
 
     private void consultarJogoPeloCodigo(int codigo) {
         for (Jogo jogo : this.bancoJogos.getJogos()) {
             if (jogo.getCodigo() == codigo) {
-                System.out.println("5:" + codigo + ";" + jogo.getNome() + ";" + jogo.getCategoria());
+                System.out.println("5:" + jogo.descrever() + ";" + jogo.getCategoria());
                 return;
             }
         }
@@ -244,14 +243,14 @@ public class ACMESpiele {
             return;
         }
 
-        ArrayList<Jogo> jogos = this.bancoJogos.getJogosPorCategoria(categoriaEnum);
+        ArrayList<Jogo> jogosDaCategoria = this.bancoJogos.getJogosPorCategoria(categoriaEnum);
 
-        if (jogos.size() == 0) {
+        if (jogosDaCategoria.size() == 0) {
             System.out.println("6:erro-nenhum jogo encontrado.");
             return;
         }
 
-        for (Jogo jogo : jogos) {
+        for (Jogo jogo : jogosDaCategoria) {
             System.out.println("6:" + jogo.getCategoria() + ";" + jogo.getCodigo() + ";" + jogo.getNome());
         }
     }
@@ -261,8 +260,7 @@ public class ACMESpiele {
             if (cliente.getNumero() == numero) {
 
                 cliente.setNome(novoNome);
-                System.out.println(
-                        "7:" + numero + ";" + novoNome + ";" + cliente.getEmail() + ";" + cliente.getDocumento());
+                System.out.println("7:" + cliente.descrever() + ";" + cliente.getDocumento());
                 return;
             }
         }
@@ -298,9 +296,7 @@ public class ACMESpiele {
         }
 
         for (Contrato contrato : this.bancoContratos.getContratos()) {
-            System.out.println(
-                    "9:" + contrato.getId() + ";" + contrato.getPeriodo() + ";" + contrato.getCliente().getNumero()
-                            + ";" + contrato.getJogo().getCodigo());
+            System.out.println("9:" + contrato.descrever());
         }
     }
 
@@ -326,10 +322,8 @@ public class ACMESpiele {
         }
 
         if (clienteMaiorValorContrato.getSomatorioValorContratos() > 0) {
-            System.out
-                    .println("10:" + clienteMaiorValorContrato.getNumero() + ";" + clienteMaiorValorContrato.getNome()
-                            + ";" + clienteMaiorValorContrato.getEmail() + ";"
-                            + clienteMaiorValorContrato.getSomatorioValorContratos());
+            System.out.println("10:" + clienteMaiorValorContrato.descrever() + ";"
+                    + clienteMaiorValorContrato.getSomatorioValorContratos());
             return;
         }
 
