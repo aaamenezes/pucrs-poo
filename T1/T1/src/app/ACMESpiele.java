@@ -17,6 +17,7 @@ import dados.Individual;
 import dados.Jogo;
 
 import database.BancoClientes;
+import database.BancoContratos;
 import database.BancoJogos;
 
 import utils.CategoriaUtils;
@@ -29,7 +30,7 @@ public class ACMESpiele {
 
     private BancoClientes bancoClientes = new BancoClientes();
     private BancoJogos bancoJogos = new BancoJogos();
-    private ArrayList<Contrato> contratos = new ArrayList<>();
+    private BancoContratos bancoContratos = new BancoContratos();
 
     private Scanner leitura = new Scanner(System.in);
 
@@ -199,10 +200,9 @@ public class ACMESpiele {
                 Contrato contrato = new Contrato(id, periodo, cliente, jogo);
                 jogo.adicionarContrato(contrato);
                 cliente.adicionarContrato(contrato);
-                this.contratos.add(contrato);
+                this.bancoContratos.add(contrato);
                 System.out.println("4:" + id + ";" + periodo + ";" + numeroCliente + ";" + codigoJogo);
             }
-
         }
     }
 
@@ -261,7 +261,7 @@ public class ACMESpiele {
 
                 for (Contrato contrato : jogo.getContratos()) {
                     System.out.println("8:contrato removido: " + contrato.getId());
-                    this.contratos.remove(contrato);
+                    this.bancoContratos.remove(contrato);
                 }
 
                 jogo.zerarContratos();
@@ -273,12 +273,12 @@ public class ACMESpiele {
     }
 
     private void listarContratos() {
-        if (this.contratos.size() == 0) {
+        if (this.bancoContratos.size() == 0) {
             System.out.println("9:erro-nenhum contrato cadastrado.");
             return;
         }
 
-        for (Contrato contrato : this.contratos) {
+        for (Contrato contrato : this.bancoContratos.getContratos()) {
             System.out.println(
                     "9:" + contrato.getId() + ";" + contrato.getPeriodo() + ";" + contrato.getCliente().getNumero()
                             + ";" + contrato.getJogo().getCodigo());
@@ -286,7 +286,7 @@ public class ACMESpiele {
     }
 
     private void consultarClienteMaiorValorContrato() {
-        if (this.contratos.size() == 0) {
+        if (this.bancoContratos.size() == 0) {
             System.out.println("10:erro-nenhum contrato encontrado.");
             return;
         }
@@ -361,7 +361,7 @@ public class ACMESpiele {
     }
 
     private boolean temContrato(int id) {
-        for (Contrato contrato : this.contratos) {
+        for (Contrato contrato : this.bancoContratos.getContratos()) {
             if (contrato.getId() == id) {
                 return true;
             }
