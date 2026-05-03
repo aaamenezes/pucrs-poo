@@ -38,16 +38,26 @@ public class ACMESpiele {
         cadastrarClientesCorporativos();
         cadastrarJogos();
         cadastrarContratos();
-        consultarJogoPeloCodigo();
-        consultarJogosPorCategoria();
-        mudarNomeClientePorNumero();
-        limparContratosJogoPorCodigo();
+
+        int codigoConsulta = leitura.nextInt();
+        leitura.nextLine();
+        consultarJogoPeloCodigo(codigoConsulta); // 444
+
+        String categoriaConsulta = leitura.nextLine();
+        consultarJogosPorCategoria(categoriaConsulta); // AVENTURA
+
+        int numeroParaMudar = leitura.nextInt();
+        leitura.nextLine();
+        mudarNomeClientePorNumero(numeroParaMudar, "Fulano de Tal");
+
+        limparContratosJogoPorCodigo(333);
         listarContratos();
         consultarClienteMaiorValorContrato();
     }
 
     private void cadastrarClientesIndividuais() {
         int proximoValor = leitura.nextInt();
+        leitura.nextLine();
 
         while (proximoValor != -1) {
             int numero = proximoValor;
@@ -63,6 +73,7 @@ public class ACMESpiele {
             String cpf = leitura.nextLine();
 
             proximoValor = leitura.nextInt();
+            leitura.nextLine();
 
             if (pularCliente) {
                 continue;
@@ -76,6 +87,7 @@ public class ACMESpiele {
 
     private void cadastrarClientesCorporativos() {
         int proximoValor = leitura.nextInt();
+        leitura.nextLine();
 
         while (proximoValor != -1) {
             int numero = proximoValor;
@@ -92,6 +104,7 @@ public class ACMESpiele {
             String nomeFantasia = leitura.nextLine();
 
             proximoValor = leitura.nextInt();
+            leitura.nextLine();
 
             if (pularCliente) {
                 continue;
@@ -105,6 +118,7 @@ public class ACMESpiele {
 
     private void cadastrarJogos() {
         int proximoValor = leitura.nextInt();
+        leitura.nextLine();
 
         while (proximoValor != -1) {
             int codigo = proximoValor;
@@ -116,10 +130,13 @@ public class ACMESpiele {
             String nome = leitura.nextLine();
             int ano = leitura.nextInt();
             double valorMinuto = leitura.nextDouble();
+            leitura.nextLine();
+
             Categoria categoriaEnum = Categoria.valueOf(leitura.nextLine());
             String categoriaDescricao = categoriaEnum.getDescricao();
 
             proximoValor = leitura.nextInt();
+            leitura.nextLine();
 
             if (categoriaDescricao == null) {
                 System.out.println("3:erro-categoria inexistente");
@@ -135,6 +152,7 @@ public class ACMESpiele {
 
     private void cadastrarContratos() {
         int proximoValor = leitura.nextInt();
+        leitura.nextLine();
 
         while (proximoValor != -1) {
             int id = proximoValor;
@@ -259,14 +277,13 @@ public class ACMESpiele {
             return;
         }
 
-        Cliente clienteMaiorValorContrato = null;
+        Cliente clienteMaiorValorContrato = this.clientes.get(0);
 
         for (Cliente clienteAtual : this.clientes) {
-            boolean primeiroLoop = clienteMaiorValorContrato == null;
             boolean clienteAtualTemValorMaior = clienteAtual.getSomatorioValorContratos() > clienteMaiorValorContrato
                     .getSomatorioValorContratos();
 
-            if (primeiroLoop || clienteAtualTemValorMaior) {
+            if (clienteAtualTemValorMaior) {
                 clienteMaiorValorContrato = clienteAtual;
             }
         }
@@ -286,6 +303,9 @@ public class ACMESpiele {
         try {
             BufferedReader entrada = new BufferedReader(new FileReader(nomeArquivoEntrada));
             leitura = new Scanner(entrada);
+
+            Locale.setDefault(Locale.ENGLISH);
+            leitura.useLocale(Locale.ENGLISH);
         } catch (Exception erro) {
             System.out.println("Erro ao criar leitor de entrada via arquivo: " + erro);
         }
@@ -293,10 +313,10 @@ public class ACMESpiele {
 
     private void iniciarArquivoSaida() {
         try {
-            PrintStream saida = new PrintStream(new File(nomeArquivoSaida), Charset.forName("UTF-8"));
+            PrintStream saida = new PrintStream(new File(this.nomeArquivoSaida), Charset.forName("UTF-8"));
             System.setOut(saida);
         } catch (Exception erro) {
-            System.out.println(erro);
+            System.out.println("Erro ao iniciarArquivoSaida: " + erro);
         }
 
         Locale.setDefault(Locale.ENGLISH);
