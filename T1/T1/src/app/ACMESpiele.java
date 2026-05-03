@@ -270,14 +270,14 @@ public class ACMESpiele {
         for (Jogo jogo : this.bancoJogos.getJogos()) {
             if (jogo.getCodigo() == codigo) {
                 int codigoJogo = jogo.getCodigo();
-                ArrayList<Contrato> contratosDoJogo = this.bancoContratos.getContratosPorCodigoJogo(codigoJogo);
+                BancoContratos contratosDoJogo = this.bancoContratos.getContratosPorCodigoJogo(codigoJogo);
 
-                if (contratosDoJogo.size() == 0) {
+                if (contratosDoJogo.getQuantidade() == 0) {
                     System.out.println("8:nenhum contrato encontrado.");
                     return;
                 }
 
-                for (Contrato contratoParaRemover : contratosDoJogo) {
+                for (Contrato contratoParaRemover : contratosDoJogo.getContratos()) {
                     System.out.println("8:contrato removido: " + contratoParaRemover.getId());
                     this.bancoContratos.remove(contratoParaRemover);
                 }

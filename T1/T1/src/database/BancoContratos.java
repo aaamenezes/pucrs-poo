@@ -18,12 +18,12 @@ public class BancoContratos {
         return contratosResultado;
     }
 
-    public ArrayList<Contrato> getContratosPorCodigoJogo(int codigoJogo) {
-        ArrayList<Contrato> contratosResultado = new ArrayList<Contrato>();
+    public BancoContratos getContratosPorCodigoJogo(int codigoJogo) {
+        BancoContratos contratosResultado = new BancoContratos();
 
         for (Contrato contrato : this.contratos) {
             if (contrato.getJogo().getCodigo() == codigoJogo) {
-                contratosResultado.add(contrato);
+                contratosResultado.adicionar(contrato);
             }
         }
 
