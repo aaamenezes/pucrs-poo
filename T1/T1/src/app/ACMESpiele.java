@@ -286,6 +286,10 @@ public class ACMESpiele {
         Cliente clienteMaiorValorContrato = this.clientes.get(0);
 
         for (Cliente clienteAtual : this.clientes) {
+            if (!(clienteAtual instanceof Individual)) {
+                continue;
+            }
+
             boolean clienteAtualTemValorMaior = clienteAtual.getSomatorioValorContratos() > clienteMaiorValorContrato
                     .getSomatorioValorContratos();
 

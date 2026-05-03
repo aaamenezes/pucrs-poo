@@ -50,7 +50,7 @@ public abstract class Cliente {
     public void adicionarContrato(Contrato contrato) {
         this.contratos.add(contrato);
 
-        double valorContratoAtual = contrato.getPeriodo() * contrato.getJogo().getValorMinuto();
+        double valorContratoAtual = contrato.getJogo().getValorMinuto();
         this.somatorioValorContratos += valorContratoAtual;
     }
 
