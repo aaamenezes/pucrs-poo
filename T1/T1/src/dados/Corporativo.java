@@ -1,7 +1,7 @@
 package dados;
 
 public class Corporativo extends Cliente {
-    private String cnpj;
+    private final String cnpj;
     private String nomeFantasia;
 
     public Corporativo(int numero, String nome, String email, String cnpj, String nomeFantasia) {

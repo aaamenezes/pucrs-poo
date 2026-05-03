@@ -3,7 +3,7 @@ package dados;
 import java.util.ArrayList;
 
 public class Jogo {
-    private int codigo;
+    private final int codigo;
     private String nome;
     private int ano;
     private double valorMinuto;

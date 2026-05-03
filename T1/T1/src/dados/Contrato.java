@@ -1,7 +1,7 @@
 package dados;
 
 public class Contrato {
-    private int id;
+    private final int id;
     private int periodo;
     private Cliente cliente;
     private Jogo jogo;

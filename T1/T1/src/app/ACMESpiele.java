@@ -28,9 +28,9 @@ public class ACMESpiele {
     private final String nomeArquivoEntrada = "datain.txt";
     private final String nomeArquivoSaida = "dataout.txt";
 
-    private BancoClientes bancoClientes = new BancoClientes();
-    private BancoJogos bancoJogos = new BancoJogos();
-    private BancoContratos bancoContratos = new BancoContratos();
+    private final BancoClientes bancoClientes = new BancoClientes();
+    private final BancoJogos bancoJogos = new BancoJogos();
+    private final BancoContratos bancoContratos = new BancoContratos();
 
     private Scanner leitura = new Scanner(System.in);
 

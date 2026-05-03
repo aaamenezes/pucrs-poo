@@ -3,7 +3,7 @@ package dados;
 import java.util.ArrayList;
 
 public abstract class Cliente {
-    private int numero;
+    private final int numero;
     private String nome;
     private String email;
     private ArrayList<Contrato> contratos;
