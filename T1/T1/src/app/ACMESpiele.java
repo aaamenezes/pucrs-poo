@@ -97,7 +97,7 @@ public class ACMESpiele {
             boolean pularCliente = false;
 
             if (getClientePorNumero(numero) != null) {
-                System.out.println("2:erro-numero repetido");
+                System.out.println("2:erro-numero repetido.");
                 pularCliente = true;
             }
 
@@ -127,7 +127,7 @@ public class ACMESpiele {
             int codigo = proximoValor;
 
             if (getJogoPeloCodigo(codigo) != null) {
-                System.out.println("3:erro-codigo repetido");
+                System.out.println("3:erro-codigo repetido.");
             }
 
             String nome = leitura.nextLine();
@@ -141,8 +141,8 @@ public class ACMESpiele {
             proximoValor = leitura.nextInt();
             leitura.nextLine();
 
-            if (categoriaDescricao == null) {
-                System.out.println("3:erro-categoria inexistente");
+            if (categoriaEnum == null) {
+                System.out.println("3:erro-categoria inexistente.");
                 continue;
             }
 
@@ -171,7 +171,7 @@ public class ACMESpiele {
             Cliente cliente = getClientePorNumero(numeroCliente);
 
             if (cliente == null) {
-                System.out.println("4:erro-cliente inexistente");
+                System.out.println("4:erro-cliente inexistente.");
                 pularContrato = true;
             }
 
@@ -179,7 +179,7 @@ public class ACMESpiele {
             Jogo jogo = getJogoPeloCodigo(codigoJogo);
 
             if (jogo == null) {
-                System.out.println("4:erro-jogo inexistente");
+                System.out.println("4:erro-jogo inexistente.");
                 pularContrato = true;
             }
 
@@ -206,7 +206,7 @@ public class ACMESpiele {
             }
         }
 
-        System.out.println("5:erro-codigo inexistente");
+        System.out.println("5:erro-codigo inexistente.");
     }
 
     private void consultarJogosPorCategoria(String categoria) {
@@ -266,7 +266,7 @@ public class ACMESpiele {
 
     private void listarContratos() {
         if (this.contratos.size() == 0) {
-            System.out.println("9:erro-nenhum contrato cadastrado");
+            System.out.println("9:erro-nenhum contrato cadastrado.");
             return;
         }
 
