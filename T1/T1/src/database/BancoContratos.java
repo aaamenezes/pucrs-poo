@@ -2,7 +2,9 @@ package database;
 
 import java.util.ArrayList;
 
+import dados.Cliente;
 import dados.Contrato;
+import dados.Jogo;
 
 public class BancoContratos {
     private ArrayList<Contrato> contratos = new ArrayList<>();
@@ -32,6 +34,12 @@ public class BancoContratos {
 
     public void adicionar(Contrato contrato) {
         this.contratos.add(contrato);
+
+        Jogo jogo = contrato.getJogo();
+        double valorMinuto = jogo.getValorMinuto();
+        Cliente cliente = contrato.getCliente();
+        cliente.incrementarSomatorioValorContratos(valorMinuto);
+
         this.quantidade++;
     }
 

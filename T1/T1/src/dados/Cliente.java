@@ -23,6 +23,10 @@ public abstract class Cliente {
         return this.nome;
     }
 
+    public void incrementarSomatorioValorContratos(double valor) {
+        this.somatorioValorContratos += valor;
+    }
+
     public double getSomatorioValorContratos() {
         return this.somatorioValorContratos;
     }
