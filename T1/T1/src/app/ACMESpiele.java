@@ -307,7 +307,7 @@ public class ACMESpiele {
             return;
         }
 
-        Cliente clienteMaiorValorContrato = this.bancoClientes.getClientes().get(0);
+        Cliente clienteMaiorValorContrato = this.bancoClientes.getPrimeiro();
 
         for (Cliente clienteAtual : this.bancoClientes.getClientes()) {
             if (!(clienteAtual instanceof Individual)) {
@@ -322,13 +322,13 @@ public class ACMESpiele {
             }
         }
 
-        if (clienteMaiorValorContrato.getSomatorioValorContratos() > 0) {
-            System.out.print("10:" + clienteMaiorValorContrato.descrever() + ";"
-                    + clienteMaiorValorContrato.getSomatorioValorContratos());
+        if (clienteMaiorValorContrato.getSomatorioValorContratos() == 0) {
+            System.out.print("10:erro-nenhum cliente possui contrato ou contratos estão zerados.");
             return;
         }
 
-        System.out.print("10:erro-nenhum cliente possui contrato ou contratos estão zerados.");
+        System.out.print("10:" + clienteMaiorValorContrato.descrever() + ";"
+                + clienteMaiorValorContrato.getSomatorioValorContratos());
     }
 
     /**

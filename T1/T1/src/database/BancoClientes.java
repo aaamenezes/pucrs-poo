@@ -30,4 +30,12 @@ public class BancoClientes {
 
         return null;
     }
+
+    public Cliente getPrimeiro() {
+        if (this.clientes.size() > 0) {
+            return this.clientes.get(0);
+        }
+
+        return null;
+    }
 }
