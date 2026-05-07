@@ -47,7 +47,7 @@ public class BancoContratos {
         return this.quantidade;
     }
 
-    public void remove(Contrato contrato) {
+    public void remover(Contrato contrato) {
         this.contratos.remove(contrato);
         this.quantidade--;
     }

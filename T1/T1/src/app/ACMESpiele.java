@@ -258,7 +258,6 @@ public class ACMESpiele {
     private void mudarNomeClientePorNumero(int numero, String novoNome) {
         for (Cliente cliente : this.bancoClientes.getClientes()) {
             if (cliente.getNumero() == numero) {
-
                 cliente.setNome(novoNome);
                 System.out.println("7:" + cliente.descrever() + ";" + cliente.getDocumento());
                 return;
@@ -281,8 +280,9 @@ public class ACMESpiele {
 
                 for (Contrato contratoParaRemover : contratosDoJogo.getContratos()) {
                     System.out.println("8:contrato removido: " + contratoParaRemover.getId());
-                    this.bancoContratos.remove(contratoParaRemover);
+                    this.bancoContratos.remover(contratoParaRemover);
                 }
+
                 return;
             }
         }
