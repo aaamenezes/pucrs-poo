@@ -30,6 +30,10 @@ public abstract class Cliente {
         this.somatorioValorContratos += valor;
     }
 
+    public void decrementarSomatorioValorContratos(double valor) {
+        this.somatorioValorContratos -= valor;
+    }
+
     public double getSomatorioValorContratos() {
         return this.somatorioValorContratos;
     }

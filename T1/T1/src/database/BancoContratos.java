@@ -52,9 +52,17 @@ public class BancoContratos {
     }
 
     public void remover(Contrato contrato) {
-        contrato.getCliente().removerContrato(contrato);
-        contrato.getJogo().removerContrato(contrato);
+        Cliente cliente = contrato.getCliente();
+        cliente.removerContrato(contrato);
+
+        Jogo jogo = contrato.getJogo();
+        jogo.removerContrato(contrato);
+
         this.contratos.remove(contrato);
+
+        double valorMinuto = jogo.getValorMinuto();
+        cliente.decrementarSomatorioValorContratos(valorMinuto);
+
         this.quantidade--;
     }
 
