@@ -148,11 +148,11 @@ public class ACMESpiele {
 
         while (proximoValor != -1) {
             int codigo = proximoValor;
-            boolean pularCliente = false;
+            boolean pularJogo = false;
 
             if (this.bancoJogos.getJogoPeloCodigo(codigo) != null) {
                 System.out.println("3:erro-codigo repetido.");
-                pularCliente = true;
+                pularJogo = true;
             }
 
             String nome = leitura.nextLine();
@@ -165,7 +165,7 @@ public class ACMESpiele {
             proximoValor = leitura.nextInt();
             leitura.nextLine();
 
-            if (pularCliente) {
+            if (pularJogo) {
                 continue;
             }
 
