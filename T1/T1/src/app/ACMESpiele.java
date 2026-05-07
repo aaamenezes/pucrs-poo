@@ -34,6 +34,8 @@ public class ACMESpiele {
 
     private Scanner leitura = new Scanner(System.in);
 
+    private CategoriaUtils categoriaUtils = new CategoriaUtils();
+
     public ACMESpiele() {
         iniciarArquivoEntrada();
         iniciarArquivoSaida();
@@ -160,7 +162,7 @@ public class ACMESpiele {
             double valorMinuto = leitura.nextDouble();
             leitura.nextLine();
 
-            Categoria categoriaEnum = CategoriaUtils.converterStringEnum(leitura.nextLine());
+            Categoria categoriaEnum = this.categoriaUtils.converterStringParaEnum(leitura.nextLine());
 
             proximoValor = leitura.nextInt();
             leitura.nextLine();
@@ -233,13 +235,13 @@ public class ACMESpiele {
         System.out.println("5:erro-codigo inexistente.");
     }
 
-    private void consultarJogosPorCategoria(String categoria) {
+    private void consultarJogosPorCategoria(String categoriaString) {
         if (this.bancoJogos.getQuantidade() == 0) {
             System.out.println("6:erro-nenhum jogo encontrado.");
             return;
         }
 
-        Categoria categoriaEnum = CategoriaUtils.converterStringEnum(categoria);
+        Categoria categoriaEnum = this.categoriaUtils.converterStringParaEnum(categoriaString);
 
         if (categoriaEnum == null) {
             System.out.println("6:erro-categoria inexistente.");
