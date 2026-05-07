@@ -301,7 +301,7 @@ public class ACMESpiele {
 
     private void consultarClienteMaiorValorContrato() {
         if (this.bancoContratos.getQuantidade() == 0) {
-            System.out.println("10:erro-nenhum contrato encontrado.");
+            System.out.print("10:erro-nenhum contrato encontrado.");
             return;
         }
 
@@ -321,12 +321,12 @@ public class ACMESpiele {
         }
 
         if (clienteMaiorValorContrato.getSomatorioValorContratos() > 0) {
-            System.out.println("10:" + clienteMaiorValorContrato.descrever() + ";"
+            System.out.print("10:" + clienteMaiorValorContrato.descrever() + ";"
                     + clienteMaiorValorContrato.getSomatorioValorContratos());
             return;
         }
 
-        System.out.println("10:erro-nenhum cliente possui contrato ou contratos estão zerados.");
+        System.out.print("10:erro-nenhum cliente possui contrato ou contratos estão zerados.");
     }
 
     /**
