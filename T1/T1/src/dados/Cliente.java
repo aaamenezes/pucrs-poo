@@ -1,9 +1,12 @@
 package dados;
 
+import java.util.ArrayList;
+
 public abstract class Cliente {
     private final int numero;
     private String nome;
     private String email;
+    private ArrayList<Contrato> contratos;
     private double somatorioValorContratos;
 
     public Cliente(int numero, String nome, String email) {
@@ -41,6 +44,14 @@ public abstract class Cliente {
 
     public String getEmail() {
         return this.email;
+    }
+
+    public void adicionarContrato(Contrato contrato) {
+        this.contratos.add(contrato);
+    }
+
+    public void removerContrato(Contrato contrato) {
+        this.contratos.remove(contrato);
     }
 
     public abstract String getDocumento();

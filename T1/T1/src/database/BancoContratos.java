@@ -35,9 +35,13 @@ public class BancoContratos {
     public void adicionar(Contrato contrato) {
         this.contratos.add(contrato);
 
-        Jogo jogo = contrato.getJogo();
-        double valorMinuto = jogo.getValorMinuto();
         Cliente cliente = contrato.getCliente();
+        cliente.adicionarContrato(contrato);
+
+        Jogo jogo = contrato.getJogo();
+        jogo.adicionarContrato(contrato);
+
+        double valorMinuto = jogo.getValorMinuto();
         cliente.incrementarSomatorioValorContratos(valorMinuto);
 
         this.quantidade++;
@@ -48,6 +52,8 @@ public class BancoContratos {
     }
 
     public void remover(Contrato contrato) {
+        contrato.getCliente().removerContrato(contrato);
+        contrato.getJogo().removerContrato(contrato);
         this.contratos.remove(contrato);
         this.quantidade--;
     }
