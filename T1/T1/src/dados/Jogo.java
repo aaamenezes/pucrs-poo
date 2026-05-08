@@ -7,8 +7,8 @@ public class Jogo {
     private String nome;
     private int ano;
     private double valorMinuto;
-    private ArrayList<Contrato> contratos;
     private Categoria categoria;
+    private ArrayList<Contrato> contratos;
 
     public Jogo(int codigo, String nome, int ano, double valorMinuto, Categoria categoria) {
         this.codigo = codigo;
@@ -16,6 +16,7 @@ public class Jogo {
         this.ano = ano;
         this.valorMinuto = valorMinuto;
         this.categoria = categoria;
+        this.contratos = new ArrayList<Contrato>();
     }
 
     public int getCodigo() {

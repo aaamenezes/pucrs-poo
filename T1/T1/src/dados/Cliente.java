@@ -13,6 +13,7 @@ public abstract class Cliente {
         this.numero = numero;
         this.nome = nome;
         this.email = email;
+        this.contratos = new ArrayList<Contrato>();
         this.somatorioValorContratos = 0;
     }
 
