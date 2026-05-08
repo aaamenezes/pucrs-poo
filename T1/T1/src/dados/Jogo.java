@@ -49,4 +49,18 @@ public class Jogo {
     public void removerContrato(Contrato contrato) {
         this.contratos.remove(contrato);
     }
+
+    public ArrayList<Contrato> getContratos() {
+        ArrayList<Contrato> contratosResultado = new ArrayList<Contrato>();
+
+        for (Contrato contrato : this.contratos) {
+            contratosResultado.add(contrato);
+        }
+
+        return contratosResultado;
+    }
+
+    public int getQuantidadeContratos() {
+        return this.contratos.size();
+    }
 }

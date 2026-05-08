@@ -17,12 +17,9 @@ import dados.Individual;
 import dados.Jogo;
 
 import database.BancoClientes;
-import database.BancoContratos;
 import database.BancoJogos;
 
 import utils.CategoriaUtils;
-// O diagrama de classes deve ser atualizado conforme as alterações realizadas e deve ser entregue em arquivo Astah ou PDF.
-// https://moodle.pucrs.br/pluginfile.php/5810311/mod_resource/content/36/ProgOO-Trab1-2026-1.pdf
 
 public class ACMESpiele {
     private final String nomeArquivoEntrada = "datain.txt";
@@ -30,7 +27,6 @@ public class ACMESpiele {
 
     private final BancoClientes bancoClientes = new BancoClientes();
     private final BancoJogos bancoJogos = new BancoJogos();
-    private final BancoContratos bancoContratos = new BancoContratos();
 
     private Scanner leitura = new Scanner(System.in);
 
@@ -190,9 +186,18 @@ public class ACMESpiele {
             int id = proximoValor;
             boolean pularContrato = false;
 
-            if (this.bancoContratos.temContrato(id)) {
-                System.out.println("4:erro-id repetido");
-                pularContrato = true;
+            for (Cliente cliente : this.bancoClientes.getClientes()) {
+                for (Contrato contrato : cliente.getContratos()) {
+                    if (contrato.getId() == id) {
+                        System.out.println("4:erro-id repetido");
+                        pularContrato = true;
+                        break;
+                    }
+                }
+
+                if (pularContrato) {
+                    break;
+                }
             }
 
             int periodo = leitura.nextInt();
@@ -219,7 +224,13 @@ public class ACMESpiele {
             }
 
             Contrato contrato = new Contrato(id, periodo, cliente, jogo);
-            this.bancoContratos.adicionar(contrato);
+
+            cliente.adicionarContrato(contrato);
+            jogo.adicionarContrato(contrato);
+
+            double valorMinuto = jogo.getValorMinuto();
+            cliente.incrementarSomatorioValorContratos(valorMinuto);
+
             System.out.println("4:" + contrato.descrever());
         }
     }
@@ -271,16 +282,23 @@ public class ACMESpiele {
         for (Jogo jogo : this.bancoJogos.getJogos()) {
             if (jogo.getCodigo() == codigo) {
                 int codigoJogo = jogo.getCodigo();
-                BancoContratos contratosDoJogo = this.bancoContratos.getContratosPorCodigoJogo(codigoJogo);
+                Jogo jogoDoContrato = this.bancoJogos.getJogoPeloCodigo(codigoJogo);
 
-                if (contratosDoJogo.getQuantidade() == 0) {
+                if (jogoDoContrato.getQuantidadeContratos() == 0) {
                     System.out.println("8:nenhum contrato encontrado.");
                     return;
                 }
 
-                for (Contrato contratoParaRemover : contratosDoJogo.getContratos()) {
+                for (Contrato contratoParaRemover : jogoDoContrato.getContratos()) {
+                    Cliente cliente = contratoParaRemover.getCliente();
+                    cliente.removerContrato(contratoParaRemover);
+
+                    jogo.removerContrato(contratoParaRemover);
+
+                    double valorMinuto = jogo.getValorMinuto();
+                    cliente.decrementarSomatorioValorContratos(valorMinuto);
+
                     System.out.println("8:contrato removido: " + contratoParaRemover.getId());
-                    this.bancoContratos.remover(contratoParaRemover);
                 }
 
                 return;
@@ -291,27 +309,31 @@ public class ACMESpiele {
     }
 
     private void listarContratos() {
-        if (this.bancoContratos.getQuantidade() == 0) {
-            System.out.println("9:erro-nenhum contrato cadastrado.");
-            return;
+        boolean temContratos = false;
+
+        for (Cliente cliente : this.bancoClientes.getClientes()) {
+            for (Contrato contrato : cliente.getContratos()) {
+                System.out.println("9:" + contrato.descrever());
+                temContratos = true;
+            }
         }
 
-        for (Contrato contrato : this.bancoContratos.getContratos()) {
-            System.out.println("9:" + contrato.descrever());
+        if (!temContratos) {
+            System.out.println("9:erro-nenhum contrato cadastrado.");
         }
     }
 
     private void consultarClienteMaiorValorContrato() {
-        if (this.bancoContratos.getQuantidade() == 0) {
-            System.out.print("10:erro-nenhum contrato encontrado.");
-            return;
-        }
-
+        boolean temContratos = false;
         Cliente clienteMaiorValorContrato = this.bancoClientes.getPrimeiro();
 
         for (Cliente clienteAtual : this.bancoClientes.getClientes()) {
             if (!(clienteAtual instanceof Individual)) {
                 continue;
+            }
+
+            if (clienteAtual.getQuantidadeContratos() > 0) {
+                temContratos = true;
             }
 
             boolean clienteAtualTemValorMaior = clienteAtual.getSomatorioValorContratos() > clienteMaiorValorContrato
@@ -320,6 +342,11 @@ public class ACMESpiele {
             if (clienteAtualTemValorMaior) {
                 clienteMaiorValorContrato = clienteAtual;
             }
+        }
+
+        if (!temContratos) {
+            System.out.print("10:erro-nenhum contrato encontrado.");
+            return;
         }
 
         if (clienteMaiorValorContrato.getSomatorioValorContratos() == 0) {

@@ -26,6 +26,20 @@ public abstract class Cliente {
         return this.nome;
     }
 
+    public ArrayList<Contrato> getContratos() {
+        ArrayList<Contrato> contratosResultado = new ArrayList<Contrato>();
+
+        for (Contrato contrato : this.contratos) {
+            contratosResultado.add(contrato);
+        }
+
+        return contratosResultado;
+    }
+
+    public int getQuantidadeContratos() {
+        return this.contratos.size();
+    }
+
     public void incrementarSomatorioValorContratos(double valor) {
         this.somatorioValorContratos += valor;
     }
